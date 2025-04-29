@@ -63,11 +63,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				kampus: {
-					primary: '#4F46E5',
-					secondary: '#6366F1',
-					accent: '#8B5CF6',
-					light: '#EEF2FF',
-					dark: '#1E293B'
+					primary: '#000080',
+					secondary: '#000066',
+					accent: '#000033',
+					light: '#E6E6FA',
+					dark: '#00004D'
 				}
 			},
 			borderRadius: {

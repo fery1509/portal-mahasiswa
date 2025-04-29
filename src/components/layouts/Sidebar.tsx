@@ -78,7 +78,7 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
   return (
     <div className="h-full flex flex-col bg-kampus-primary text-white">
       {/* Sidebar header */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-indigo-400">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-kampus-secondary">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-xl font-bold">SIMAK</span>
         </Link>
@@ -95,21 +95,21 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
       </div>
 
       {/* User info */}
-      <div className="px-4 py-4 border-b border-indigo-400">
+      <div className="px-4 py-4 border-b border-kampus-secondary">
         <div className="flex items-center space-x-3">
           <img
             src={
               user?.avatar ||
               `https://ui-avatars.com/api/?name=${
                 user?.name || "User"
-              }&background=6366F1&color=fff`
+              }&background=000080&color=fff`
             }
             alt="Profile"
             className="h-10 w-10 rounded-full"
           />
           <div>
             <p className="font-medium">{user?.name}</p>
-            <p className="text-sm text-indigo-200">
+            <p className="text-sm text-kampus-light">
               {user?.role === "admin" ? "Admin Akademik" : "Mahasiswa"}
             </p>
           </div>
@@ -117,7 +117,7 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-2 py-4 space-y-1">
+      <nav className="flex-1 px-2 py-4 space-y-1">
         {navItems.map((item) => (
           <Link
             key={item.name}
@@ -127,8 +127,8 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
               flex items-center px-3 py-2 text-sm font-medium rounded-md group transition-colors
               ${
                 isActivePath(item.path)
-                  ? "bg-indigo-700 text-white"
-                  : "text-indigo-100 hover:bg-indigo-600 hover:text-white"
+                  ? "bg-kampus-dark text-white"
+                  : "text-kampus-light hover:bg-kampus-secondary hover:text-white"
               }
             `}
           >
@@ -139,11 +139,11 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
       </nav>
 
       {/* Logout button */}
-      <div className="p-4 border-t border-indigo-400">
+      <div className="p-4 border-t border-kampus-secondary">
         <button
           onClick={handleLogout}
           onMouseEnter={handleMouseEnter}
-          className="flex items-center w-full px-3 py-2 text-sm font-medium text-indigo-100 rounded-md hover:bg-indigo-600 hover:text-white transition-colors"
+          className="flex items-center w-full px-3 py-2 text-sm font-medium text-kampus-light rounded-md hover:bg-kampus-secondary hover:text-white transition-colors"
         >
           <LogOut className="mr-3 h-5 w-5" />
           Logout
