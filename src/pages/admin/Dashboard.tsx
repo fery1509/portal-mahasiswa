@@ -156,7 +156,7 @@ const AdminDashboard = () => {
             <h2 className="text-xl font-semibold">
               Selamat Datang, {user?.name}!
             </h2>
-            <p className="mt-1">Admin Akademik7000</p>
+            <p className="mt-1">Admin Akademik5000</p>
           </div>
           <div className="mt-4 md:mt-0">
             <Link
