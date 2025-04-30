@@ -145,7 +145,7 @@ const AdminDashboard = () => {
     <div className="animate-fade-in">
       <div className="pb-5 border-b border-gray-200">
         <h3 className="text-2xl font-bold leading-6 text-gray-900">
-          Dashboard Admin Akademik
+          Dashboard Admin Akademik200
         </h3>
       </div>
 
