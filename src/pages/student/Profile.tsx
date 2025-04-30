@@ -65,7 +65,7 @@ const StudentProfile = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h3 className="text-lg font-medium text-gray-900">Data mahasiswa tidak ditemukan</h3>
-          <p className="mt-1 text-sm text-gray-500">Silakan hubungi administrator.</p>
+          <p className="mt-1 text-sm text-gray-500">Silakan hubungi admin.</p>
         </div>
       </div>
     );
