@@ -56,14 +56,14 @@ const Login = () => {
           <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-5">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                <label htmlFor="nimOrEmail" className="block text-sm font-medium leading-6 text-white">
                   NIM / Email
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
+                    id="nimOrEmail"
+                    name="nimOrEmail"
+                    type="text"
                     required
                     className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
                     value={email}

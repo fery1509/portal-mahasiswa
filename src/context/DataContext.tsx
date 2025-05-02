@@ -189,7 +189,7 @@ const MOCK_ATTENDANCES: Attendance[] = [
 
 const CURRENT_TERM: AcademicTerm = {
   id: '1',
-  name: 'Semester Ganjil 2023/2024',
+  name: 'Semester Ganjil 2024/2025',
   startDate: '2023-09-01',
   endDate: '2024-01-31',
   isActive: true

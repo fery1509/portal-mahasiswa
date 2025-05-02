@@ -24,10 +24,10 @@ const AcademicRecord = () => {
   
   // Mock semester data
   const semesters = [
-    { id: '1', name: 'Semester 1 (Ganjil 2021/2022)', active: false },
-    { id: '2', name: 'Semester 2 (Genap 2021/2022)', active: false },
-    { id: '3', name: 'Semester 3 (Ganjil 2022/2023)', active: false },
-    { id: '4', name: 'Semester 4 (Genap 2022/2023)', active: false },
+    { id: '1', name: 'Semester 1 (Ganjil 2023/2024)', active: false },
+    { id: '2', name: 'Semester 2 (Genap 2023/2024)', active: false },
+    { id: '3', name: 'Semester 3 (Ganjil 2024/2025)', active: false },
+    { id: '4', name: 'Semester 4 (Genap 2024/2025)', active: false },
     { id: '5', name: 'Semester 5 (Ganjil 2023/2024)', active: true },
   ];
 

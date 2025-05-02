@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // User types
@@ -31,7 +30,7 @@ export interface StudentData {
 interface AuthContextType {
   user: (User & { studentData?: StudentData }) | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (nimOrEmail: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
   error: string | null;
@@ -52,20 +51,20 @@ const MOCK_USERS = [
   {
     id: '2',
     name: 'Budi Santoso',
-    email: 'budi@student.kampus.ac.id',
+    email: 'C030323083',
     password: 'student123',
     role: 'student' as UserRole,
     avatar: 'https://ui-avatars.com/api/?name=Budi+Santoso&background=6366F1&color=fff',
     studentData: {
-      nim: '1234567890',
+      nim: 'C030323083',
       programStudi: 'Teknik Informatika',
-      semester: 5,
+      semester: 4,
       dosenWali: 'Dr. Hendro Wijaya, M.Kom',
-      tahunMasuk: '2021',
-      provinsi: 'Jawa Barat',
-      kabupaten: 'Bandung',
+      tahunMasuk: '2023',
+      provinsi: 'Kalimantan Selatan',
+      kabupaten: 'Banjarmasin',
       jenisKelamin: 'L' as const,
-      alamat: 'Jl. Sukabirus No. 123, Bandung',
+      alamat: 'Jl. Sukabirus No. 123, Banjarmasin',
       telepon: '081234567890'
     }
   },
@@ -106,7 +105,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // Login function
-  const login = async (email: string, password: string) => {
+  const login = async (nimOrEmail: string, password: string) => {
     setLoading(true);
     setError(null);
     
@@ -114,13 +113,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // Simulate API call with timeout
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Find user by email and password (in a real app, this would be an API call)
-      const matchedUser = MOCK_USERS.find(
-        u => u.email === email && u.password === password
-      );
+      let matchedUser;
+      if (nimOrEmail.includes("@")) {
+        // Login by email (admin atau mahasiswa)
+        matchedUser = MOCK_USERS.find(
+          u => u.email === nimOrEmail && u.password === password
+        );
+      } else {
+        // Login by NIM (mahasiswa)
+        matchedUser = MOCK_USERS.find(
+          u => u.studentData?.nim === nimOrEmail && u.password === password
+        );
+      }
       
       if (!matchedUser) {
-        throw new Error('Email atau kata sandi tidak valid');
+        throw new Error('NIM/Email atau kata sandi tidak valid');
       }
       
       // Remove password before storing user data
