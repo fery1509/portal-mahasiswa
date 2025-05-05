@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { User, Mail, Phone, MapPin, Calendar, School, BookOpen, 

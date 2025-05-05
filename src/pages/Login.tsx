@@ -28,8 +28,8 @@ const Login = () => {
     <div className="min-h-screen relative">
       {/* Background Image - Full screen */}
       <div className="absolute inset-0">
-        <img 
-          src="/images/poliban-building.jpg" 
+        <img
+          src="/images/poliban-building.jpg"
           alt="Poliban Building"
           className="w-full h-full object-cover"
         />
@@ -42,21 +42,40 @@ const Login = () => {
         <div className="w-full max-w-md space-y-8 p-8 rounded-xl backdrop-blur-md bg-white/30 shadow-xl border border-white/30">
           {/* Logos */}
           <div className="flex justify-center items-center gap-6">
-            <img src="/images/logo-univ.png" alt="Logo Universitas" className="h-16 w-auto" />
-            <img src="/images/logo-simak.png" alt="Logo SIMAK" className="h-12 w-auto" />
-            <img src="/images/logo-kampus-merdeka.png" alt="Logo Kampus Merdeka" className="h-12 w-auto" />
+            <img
+              src="/images/logo-simak.png"
+              alt="Logo SIMAK"
+              className="h-12 w-auto"
+            />
+            <img
+              src="/images/logo-univ.png"
+              alt="Logo Universitas"
+              className="h-16 w-auto"
+            />
+            <img
+              src="/images/logo-kampus-merdeka.png"
+              alt="Logo Kampus Merdeka"
+              className="h-12 w-auto"
+            />
           </div>
 
           {/* Heading */}
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight text-white">Masuk ke SIMAK</h2>
-            <p className="text-base text-white/80">Akses Mudah, Akademik Lancar</p>
+            <h2 className="text-3xl font-bold tracking-tight text-white">
+              Masuk ke SIMAK
+            </h2>
+            <p className="text-base text-white/80">
+              Akses Mudah, Akademik Lancar
+            </p>
           </div>
 
           <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-5">
               <div>
-                <label htmlFor="nimOrEmail" className="block text-sm font-medium leading-6 text-white">
+                <label
+                  htmlFor="nimOrEmail"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
                   NIM / Email
                 </label>
                 <div className="mt-2">
@@ -73,7 +92,10 @@ const Login = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
                   Kata sandi anda
                 </label>
                 <div className="mt-2 relative">
@@ -102,7 +124,10 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-end">
-              <a href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+              <a
+                href="#"
+                className="text-sm font-medium text-white hover:text-white/80 transition-colors"
+              >
                 Lupa kata sandi?
               </a>
             </div>
@@ -123,7 +148,10 @@ const Login = () => {
 
             <p className="text-center text-sm text-white">
               Belum Punya Akun?{" "}
-              <a href="#" className="font-medium text-white hover:text-white/80 transition-colors">
+              <a
+                href="#"
+                className="font-medium text-white hover:text-white/80 transition-colors"
+              >
                 Buat Akun
               </a>
             </p>
