@@ -30,7 +30,7 @@ export interface StudentData {
 interface AuthContextType {
   user: (User & { studentData?: StudentData }) | null;
   loading: boolean;
-  login: (nimOrEmail: string, password: string) => Promise<void>;
+  login: (nim: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
   error: string | null;
@@ -97,34 +97,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // Login function
-  const login = async (nimOrEmail: string, password: string) => {
+  const login = async (nim: string, password: string) => {
     setLoading(true);
     setError(null);
     
     try {
       // Simulate API call with timeout
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      let matchedUser;
-      if (nimOrEmail.includes("@")) {
-        // Login by email (admin atau mahasiswa)
-        matchedUser = MOCK_USERS.find(
-          u => u.email === nimOrEmail && u.password === password
-        );
-      } else {
-        // Login by NIM (mahasiswa)
-        matchedUser = MOCK_USERS.find(
-          u => u.studentData?.nim === nimOrEmail && u.password === password
-        );
-      }
-      
+
+      // Login hanya dengan NIM mahasiswa
+      const matchedUser = MOCK_USERS.find(
+        u => u.studentData?.nim === nim && u.password === password
+      );
+
       if (!matchedUser) {
-        throw new Error('NIM/Email atau kata sandi tidak valid');
+        throw new Error('NIM atau kata sandi tidak valid');
       }
-      
+
       // Remove password before storing user data
       const { password: _, ...userWithoutPassword } = matchedUser;
-      
+
       // Store user in state and localStorage
       setUser(userWithoutPassword);
       localStorage.setItem('kampusUser', JSON.stringify(userWithoutPassword));
