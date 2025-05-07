@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,13 +19,6 @@ import StudentAttendance from "./pages/student/Attendance";
 import CourseRegistration from "./pages/student/CourseRegistration";
 import AcademicRecord from "./pages/student/AcademicRecord";
 
-// Admin Pages
-import AdminDashboard from "./pages/admin/Dashboard";
-import AdminStudents from "./pages/admin/Students";
-import AdminCourses from "./pages/admin/Courses";
-import AdminSchedules from "./pages/admin/Schedules";
-import AdminSettings from "./pages/admin/Settings";
-
 // Error Pages
 import NotFound from "./pages/NotFound";
 
@@ -38,27 +30,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
-  }
-  
-  return <>{children}</>;
-};
-
-// Route guard based on user role
-const RoleRoute = ({ 
-  children, 
-  allowedRole 
-}: { 
-  children: React.ReactNode;
-  allowedRole: 'admin' | 'student';
-}) => {
-  const { user, isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  if (user?.role !== allowedRole) {
-    return <Navigate to={user?.role === 'admin' ? '/admin' : '/dashboard'} replace />;
   }
   
   return <>{children}</>;
@@ -79,83 +50,46 @@ const App = () => (
               
               {/* Student routes */}
               <Route path="/dashboard" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <StudentDashboard />
                   </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               <Route path="/profile" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <StudentProfile />
                   </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               <Route path="/courses" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <StudentCourses />
                   </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               <Route path="/attendance" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <StudentAttendance />
                   </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               <Route path="/course-registration" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <CourseRegistration />
                   </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               <Route path="/academic-record" element={
-                <RoleRoute allowedRole="student">
+                <ProtectedRoute>
                   <AppLayout>
                     <AcademicRecord />
                   </AppLayout>
-                </RoleRoute>
-              } />
-              
-              {/* Admin routes */}
-              <Route path="/admin" element={
-                <RoleRoute allowedRole="admin">
-                  <AppLayout>
-                    <AdminDashboard />
-                  </AppLayout>
-                </RoleRoute>
-              } />
-              <Route path="/admin/students" element={
-                <RoleRoute allowedRole="admin">
-                  <AppLayout>
-                    <AdminStudents />
-                  </AppLayout>
-                </RoleRoute>
-              } />
-              <Route path="/admin/courses" element={
-                <RoleRoute allowedRole="admin">
-                  <AppLayout>
-                    <AdminCourses />
-                  </AppLayout>
-                </RoleRoute>
-              } />
-              <Route path="/admin/schedules" element={
-                <RoleRoute allowedRole="admin">
-                  <AppLayout>
-                    <AdminSchedules />
-                  </AppLayout>
-                </RoleRoute>
-              } />
-              <Route path="/admin/settings" element={
-                <RoleRoute allowedRole="admin">
-                  <AppLayout>
-                    <AdminSettings />
-                  </AppLayout>
-                </RoleRoute>
+                </ProtectedRoute>
               } />
               
               {/* Error routes */}

@@ -20,7 +20,7 @@ const Login = () => {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setErrorMsg("Login gagal. Periksa email dan kata sandi Anda.");
+      setErrorMsg("NIM atau kata sandi tidak valid");
     }
   };
 
@@ -73,15 +73,15 @@ const Login = () => {
             <div className="space-y-5">
               <div>
                 <label
-                  htmlFor="nimOrEmail"
+                  htmlFor="nim"
                   className="block text-sm font-medium leading-6 text-white"
                 >
-                  NIM / Email
+                  NIM
                 </label>
                 <div className="mt-2">
                   <input
-                    id="nimOrEmail"
-                    name="nimOrEmail"
+                    id="nim"
+                    name="nim"
                     type="text"
                     required
                     className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
@@ -134,7 +134,7 @@ const Login = () => {
 
             {(error || errorMsg) && (
               <div className="bg-red-500/50 backdrop-blur-sm border border-red-300/50 text-white px-4 py-3 rounded-lg text-sm">
-                {error || errorMsg}
+                {errorMsg || (error && "NIM atau kata sandi tidak valid")}
               </div>
             )}
 
