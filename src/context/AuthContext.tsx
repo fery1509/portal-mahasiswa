@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // User types
-export type UserRole = 'admin' | 'student';
+export type UserRole = 'student';
 
 export interface User {
   id: string;
@@ -40,14 +40,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Mock user data for development
 const MOCK_USERS = [
-  {
-    id: '1',
-    name: 'Admin Akademik',
-    email: 'admin@kampus.ac.id',
-    password: 'admin123',
-    role: 'admin' as UserRole,
-    avatar: 'https://ui-avatars.com/api/?name=Admin&background=4F46E5&color=fff'
-  },
   {
     id: '2',
     name: 'Budi Santoso',

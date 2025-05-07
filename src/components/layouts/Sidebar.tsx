@@ -33,16 +33,8 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
 
   console.log("Loading hover sound from:", hoverSoundPath);
 
-  // Navigation items based on user role
-  const adminNavItems = [
-    { name: "Dashboard", icon: Home, path: "/admin" },
-    { name: "Mahasiswa", icon: Users, path: "/admin/students" },
-    { name: "Mata Kuliah", icon: Book, path: "/admin/courses" },
-    { name: "Jadwal Kuliah", icon: Calendar, path: "/admin/schedules" },
-    { name: "Pengaturan", icon: Settings, path: "/admin/settings" },
-  ];
-
-  const studentNavItems = [
+  // Navigation items
+  const navItems = [
     { name: "Dashboard", icon: Home, path: "/dashboard" },
     { name: "Profil", icon: User, path: "/profile" },
     { name: "Mata Kuliah", icon: BookOpen, path: "/courses" },
@@ -50,8 +42,6 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
     { name: "KRS", icon: FileText, path: "/course-registration" },
     { name: "KHS", icon: GraduationCap, path: "/academic-record" },
   ];
-
-  const navItems = user?.role === "admin" ? adminNavItems : studentNavItems;
 
   // Fungsi untuk menjalankan suara hover
   const handleMouseEnter = () => {
@@ -80,7 +70,6 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
       {/* Sidebar header */}
       <div className="flex items-center justify-between h-16 px-4 border-b border-kampus-secondary">
         <Link to="/" className="flex items-center space-x-2">
-          {/* Tambahkan logo di sini */}
           <img
             src="/images/Poliban_logo1.png"
             alt="Poliban Logo"
@@ -113,12 +102,10 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
             alt="Profile"
             className="h-10 w-10 rounded-full"
           />
-            <div className="bg-transparent">
+          <div className="bg-transparent">
             <p className="font-medium">{user?.name}</p>
-            <p className="text-sm text-kampus-light">
-              {user?.role === "admin" ? "Admin Akademik" : "Mahasiswa"}
-            </p>
-            </div>
+            <p className="text-sm text-kampus-light">Mahasiswa</p>
+          </div>
         </div>
       </div>
 
