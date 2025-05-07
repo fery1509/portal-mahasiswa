@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [nim, setNim] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -12,13 +12,20 @@ const Login = () => {
   const { login, loading, error } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.removeItem('kampusUser');
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
 
     try {
-      await login(email, password);
-      navigate("/dashboard");
+      await login(nim, password);
+      // Cek apakah login berhasil (user sudah terisi di localStorage)
+      if (localStorage.getItem('kampusUser')) {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setErrorMsg("NIM atau kata sandi tidak valid");
     }
@@ -85,8 +92,8 @@ const Login = () => {
                     type="text"
                     required
                     className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={nim}
+                    onChange={(e) => setNim(e.target.value)}
                   />
                 </div>
               </div>
