@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
-import { Bell, Menu, Search } from 'lucide-react';
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { Bell, Menu, Search } from "lucide-react";
 
 interface HeaderProps {
   onOpenSidebar: () => void;
@@ -23,13 +23,7 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
               <Menu className="h-6 w-6" />
             </button>
             <div className="flex-1 flex items-center justify-center md:justify-start">
-              <div className="flex-shrink-0 flex items-center">
-                <img
-                  className="h-8 w-auto"
-                  src="/images/Poliban_logo1.png"
-                  alt="Poliban"
-                />
-              </div>
+              <div className="flex-shrink-0 flex items-center"></div>
             </div>
           </div>
           <div className="flex items-center">
@@ -45,7 +39,12 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
               <div className="flex items-center">
                 <img
                   className="h-8 w-8 rounded-full"
-                  src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=6366F1&color=fff`}
+                  src={
+                    user?.avatar ||
+                    `https://ui-avatars.com/api/?name=${
+                      user?.name || "User"
+                    }&background=6366F1&color=fff`
+                  }
                   alt="Profile"
                 />
                 <span className="hidden md:flex ml-2 text-sm font-medium text-gray-700">
