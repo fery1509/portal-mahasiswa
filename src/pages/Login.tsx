@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('kampusUser');
+    localStorage.removeItem("kampusUser");
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,7 +23,7 @@ const Login = () => {
     try {
       await login(nim, password);
       // Cek apakah login berhasil (user sudah terisi di localStorage)
-      if (localStorage.getItem('kampusUser')) {
+      if (localStorage.getItem("kampusUser")) {
         navigate("/dashboard");
       }
     } catch (err) {

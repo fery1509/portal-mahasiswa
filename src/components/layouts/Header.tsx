@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Bell, Menu, Search } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   onOpenSidebar: () => void;
@@ -8,6 +16,32 @@ interface HeaderProps {
 
 const Header = ({ onOpenSidebar }: HeaderProps) => {
   const { user } = useAuth();
+  // Dummy notifikasi
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: "Tugas",
+      message: "Tugas Pemrograman Web dikumpulkan besok",
+      read: false,
+    },
+    {
+      id: 2,
+      type: "Presensi",
+      message: "Presensi hari ini belum dilakukan",
+      read: false,
+    },
+    {
+      id: 3,
+      type: "Pengumuman",
+      message: "Libur nasional minggu depan",
+      read: false,
+    },
+  ]);
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const handleOpen = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
 
   return (
     <header className="bg-white shadow-sm">
@@ -27,13 +61,45 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
             </div>
           </div>
           <div className="flex items-center">
-            <button
-              type="button"
-              className="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kampus-primary"
-            >
-              <span className="sr-only">View notifications</span>
-              <Bell className="h-6 w-6" />
-            </button>
+            <DropdownMenu onOpenChange={(isOpen) => isOpen && handleOpen()}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="relative p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kampus-primary"
+                  aria-label="View notifications"
+                >
+                  <Bell className="h-6 w-6" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuLabel>Notifikasi</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {notifications.length === 0 ? (
+                  <DropdownMenuItem>Tidak ada notifikasi</DropdownMenuItem>
+                ) : (
+                  notifications.map((notif) => (
+                    <DropdownMenuItem
+                      key={notif.id}
+                      className={
+                        !notif.read ? "font-semibold" : "text-gray-400"
+                      }
+                    >
+                      <div>
+                        <div className="text-xs text-gray-500">
+                          {notif.type}
+                        </div>
+                        <div>{notif.message}</div>
+                      </div>
+                    </DropdownMenuItem>
+                  ))
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <div className="ml-3 relative">
               <div className="flex items-center">
