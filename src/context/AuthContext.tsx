@@ -7,7 +7,7 @@ import {
 } from "react";
 
 // User types
-export type UserRole = "student";
+export type UserRole = "student" | "admin";
 
 export interface User {
   id: string;
@@ -37,6 +37,7 @@ interface AuthContextType {
   user: (User & { studentData?: StudentData }) | null;
   loading: boolean;
   login: (nim: string, password: string) => Promise<void>;
+  adminLogin: (nip: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
   error: string | null;
@@ -90,6 +91,19 @@ const MOCK_USERS = [
   },
 ];
 
+// Mock admin data for development
+const MOCK_ADMINS = [
+  {
+    id: "admin1",
+    name: "Admin Akademik",
+    email: "admin@kampus.ac.id",
+    password: "admin123",
+    role: "admin" as UserRole,
+    avatar: "https://ui-avatars.com/api/?name=Admin+Akademik&background=10B981&color=fff",
+    nip: "admin123"
+  }
+];
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<
     (User & { studentData?: StudentData }) | null
@@ -138,9 +152,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Logout function
+  // Admin login function
+  const adminLogin = async (nip: string, password: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Simulate API call with timeout
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Login dengan NIP admin
+      const matchedAdmin = MOCK_ADMINS.find(
+        (a) => a.nip === nip && a.password === password
+      );
+
+      if (!matchedAdmin) {
+        throw new Error("NIP atau kata sandi tidak valid");
+      }
+
+      // Remove password before storing admin data
+      const { password: _, ...adminWithoutPassword } = matchedAdmin;
+
+      // Store admin in state and localStorage
+      setUser(adminWithoutPassword);
+      localStorage.setItem("kampusAdmin", JSON.stringify(adminWithoutPassword));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Terjadi kesalahan");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("kampusUser");
+    localStorage.removeItem("kampusAdmin");
   };
 
   return (
@@ -149,6 +195,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         loading,
         login,
+        adminLogin,
         logout,
         isAuthenticated: !!user,
         error,

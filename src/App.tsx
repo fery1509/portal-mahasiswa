@@ -19,6 +19,9 @@ import StudentAttendance from "./pages/student/Attendance";
 import CourseRegistration from "./pages/student/CourseRegistration";
 import AcademicRecord from "./pages/student/AcademicRecord";
 
+// Admin Pages
+import AdminDashboard from "./pages/admin/Dashboard";
+
 // Error Pages
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +32,17 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   
   if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Route guard for admin routes
+const AdminRoute = ({ children }: { children: React.ReactNode }) => {
+  const admin = localStorage.getItem("kampusAdmin");
+  
+  if (!admin) {
     return <Navigate to="/login" replace />;
   }
   
@@ -90,6 +104,13 @@ const App = () => (
                     <AcademicRecord />
                   </AppLayout>
                 </ProtectedRoute>
+              } />
+              
+              {/* Admin routes */}
+              <Route path="/admin/dashboard" element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
               } />
               
               {/* Error routes */}

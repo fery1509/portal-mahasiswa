@@ -1,19 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, User, Users } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Login = () => {
+  // Student login states
   const [nim, setNim] = useState("");
+  
+  // Admin login states
+  const [nip, setNip] = useState("");
+  
+  // Common states
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [loginMode, setLoginMode] = useState<"student" | "admin">("student");
 
-  const { login, loading, error } = useAuth();
+  const { login, adminLogin, loading, error } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.removeItem("kampusUser");
+    localStorage.removeItem("kampusAdmin");
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,14 +30,28 @@ const Login = () => {
     setErrorMsg(null);
 
     try {
-      await login(nim, password);
-      // Cek apakah login berhasil (user sudah terisi di localStorage)
-      if (localStorage.getItem("kampusUser")) {
-        navigate("/dashboard");
+      if (loginMode === "student") {
+        await login(nim, password);
+        // Cek apakah login berhasil (user sudah terisi di localStorage)
+        if (localStorage.getItem("kampusUser")) {
+          navigate("/dashboard");
+        }
+      } else {
+        await adminLogin(nip, password);
+        // Cek apakah login berhasil (admin sudah terisi di localStorage)
+        if (localStorage.getItem("kampusAdmin")) {
+          navigate("/admin/dashboard");
+        }
       }
     } catch (err) {
-      setErrorMsg("NIM atau kata sandi tidak valid");
+      setErrorMsg(loginMode === "student" ? "NIM atau kata sandi tidak valid" : "NIP atau kata sandi tidak valid");
     }
+  };
+  
+  const handleModeChange = (value: string) => {
+    setErrorMsg(null);
+    setPassword("");
+    setLoginMode(value as "student" | "admin");
   };
 
   return (
@@ -75,28 +98,66 @@ const Login = () => {
               Akses Mudah, Akademik Lancar
             </p>
           </div>
+          
+          {/* Login Type Tabs */}
+          <div className="mt-6">
+            <Tabs defaultValue="student" value={loginMode} onValueChange={handleModeChange} className="w-full">
+              <TabsList className="grid w-full grid-cols-2 bg-white/20">
+                <TabsTrigger value="student" className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  <span>Mahasiswa</span>
+                </TabsTrigger>
+                <TabsTrigger value="admin" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span>Admin</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
 
-          <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-5">
-              <div>
-                <label
-                  htmlFor="nim"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  NIM
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="nim"
-                    name="nim"
-                    type="text"
-                    required
-                    className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
-                    value={nim}
-                    onChange={(e) => setNim(e.target.value)}
-                  />
+              {loginMode === "student" ? (
+                <div>
+                  <label
+                    htmlFor="nim"
+                    className="block text-sm font-medium leading-6 text-white"
+                  >
+                    NIM
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="nim"
+                      name="nim"
+                      type="text"
+                      required
+                      className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                      value={nim}
+                      onChange={(e) => setNim(e.target.value)}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <label
+                    htmlFor="nip"
+                    className="block text-sm font-medium leading-6 text-white"
+                  >
+                    NIP
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="nip"
+                      name="nip"
+                      type="text"
+                      required
+                      className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                      value={nip}
+                      onChange={(e) => setNip(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
 
               <div>
                 <label
@@ -153,15 +214,7 @@ const Login = () => {
               {loading ? "Memproses..." : "Masuk"}
             </button>
 
-            <p className="text-center text-sm text-white">
-              Belum Punya Akun?{" "}
-              <a
-                href="#"
-                className="font-medium text-white hover:text-white/80 transition-colors"
-              >
-                Buat Akun
-              </a>
-            </p>
+
           </form>
         </div>
       </div>
