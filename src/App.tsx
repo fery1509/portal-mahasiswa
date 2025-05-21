@@ -21,6 +21,7 @@ import AcademicRecord from "./pages/student/AcademicRecord";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminStudents from "./pages/admin/students";
 
 // Error Pages
 import NotFound from "./pages/NotFound";
@@ -110,6 +111,11 @@ const App = () => (
               <Route path="/admin/dashboard" element={
                 <AdminRoute>
                   <AdminDashboard />
+                </AdminRoute>
+              } />
+              <Route path="/admin/students" element={
+                <AdminRoute>
+                  <AdminStudents />
                 </AdminRoute>
               } />
               
