@@ -2,8 +2,26 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Pencil, Trash2, Eye } from "lucide-react";
 import SidebarAdmin from "./SidebarAdmin";
 import HeaderAdmin from "./HeaderAdmin";
+import { toast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const dummyStudents = [
   {
@@ -42,6 +60,54 @@ const dummyStudents = [
 
 const AdminStudents = () => {
   const [selected, setSelected] = useState<any | null>(null);
+  const [students, setStudents] = useState(dummyStudents);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingStudent, setEditingStudent] = useState<any>(null);
+
+  const handleView = (student: any) => {
+    setSelected(student);
+  };
+
+  const handleEdit = (student: any) => {
+    setEditingStudent({ ...student });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleDelete = (student: any) => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus data mahasiswa ${student.nama}?`)) {
+      setStudents(students.filter(s => s.nim !== student.nim));
+      toast({
+        title: "Berhasil",
+        description: `Data mahasiswa ${student.nama} telah dihapus`,
+      });
+    }
+  };
+
+  const handleSaveEdit = () => {
+    setStudents(students.map(s => 
+      s.nim === editingStudent.nim ? editingStudent : s
+    ));
+    setIsEditDialogOpen(false);
+    toast({
+      title: "Berhasil",
+      description: `Data mahasiswa ${editingStudent.nama} telah diperbarui`,
+    });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditingStudent(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setEditingStudent(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-50">
@@ -51,7 +117,6 @@ const AdminStudents = () => {
           <SidebarAdmin />
         </div>
       </div>
-      {/* Mobile sidebar (optional, bisa ditambah jika ingin) */}
       {/* Main content */}
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         <HeaderAdmin onOpenSidebar={() => {}} />
@@ -73,16 +138,24 @@ const AdminStudents = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {dummyStudents.map((mhs) => (
+                    {students.map((mhs) => (
                       <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-blue-50" : ""}>
                         <TableCell>{mhs.nim}</TableCell>
                         <TableCell>{mhs.nama}</TableCell>
                         <TableCell>{mhs.prodi}</TableCell>
                         <TableCell>{mhs.tahunMasuk}</TableCell>
                         <TableCell>
-                          <Button size="sm" variant="outline" onClick={() => setSelected(mhs)}>
-                            Lihat
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline" onClick={() => handleView(mhs)}>
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => handleEdit(mhs)}>
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => handleDelete(mhs)}>
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -90,6 +163,7 @@ const AdminStudents = () => {
                 </Table>
               </CardContent>
             </Card>
+            
             {selected && (
               <Card className="max-w-3xl">
                 <CardHeader>
@@ -117,6 +191,169 @@ const AdminStudents = () => {
                 </CardContent>
               </Card>
             )}
+
+            {/* Edit Dialog */}
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Edit Data Mahasiswa</DialogTitle>
+                </DialogHeader>
+                {editingStudent && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="nim">NIM</Label>
+                      <Input
+                        id="nim"
+                        name="nim"
+                        value={editingStudent.nim}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="nama">Nama</Label>
+                      <Input
+                        id="nama"
+                        name="nama"
+                        value={editingStudent.nama}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="tempatLahir">Tempat Lahir</Label>
+                      <Input
+                        id="tempatLahir"
+                        name="tempatLahir"
+                        value={editingStudent.tempatLahir}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="tanggalLahir">Tanggal Lahir</Label>
+                      <Input
+                        id="tanggalLahir"
+                        name="tanggalLahir"
+                        type="date"
+                        value={editingStudent.tanggalLahir}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="prodi">Program Studi</Label>
+                      <Select
+                        value={editingStudent.prodi}
+                        onValueChange={(value) => handleSelectChange("prodi", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih Program Studi" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Teknik Informatika">Teknik Informatika</SelectItem>
+                          <SelectItem value="Sistem Informasi">Sistem Informasi</SelectItem>
+                          <SelectItem value="Teknik Komputer">Teknik Komputer</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="dosenPembimbing">Dosen Pembimbing</Label>
+                      <Input
+                        id="dosenPembimbing"
+                        name="dosenPembimbing"
+                        value={editingStudent.dosenPembimbing}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={editingStudent.email}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="nomorHp">Nomor HP</Label>
+                      <Input
+                        id="nomorHp"
+                        name="nomorHp"
+                        value={editingStudent.nomorHp}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="tahunMasuk">Tahun Masuk</Label>
+                      <Input
+                        id="tahunMasuk"
+                        name="tahunMasuk"
+                        value={editingStudent.tahunMasuk}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="jenisKelamin">Jenis Kelamin</Label>
+                      <Select
+                        value={editingStudent.jenisKelamin}
+                        onValueChange={(value) => handleSelectChange("jenisKelamin", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih Jenis Kelamin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Laki-laki">Laki-laki</SelectItem>
+                          <SelectItem value="Perempuan">Perempuan</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="asal">Asal</Label>
+                      <Input
+                        id="asal"
+                        name="asal"
+                        value={editingStudent.asal}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="agama">Agama</Label>
+                      <Select
+                        value={editingStudent.agama}
+                        onValueChange={(value) => handleSelectChange("agama", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih Agama" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Islam">Islam</SelectItem>
+                          <SelectItem value="Kristen">Kristen</SelectItem>
+                          <SelectItem value="Katolik">Katolik</SelectItem>
+                          <SelectItem value="Hindu">Hindu</SelectItem>
+                          <SelectItem value="Buddha">Buddha</SelectItem>
+                          <SelectItem value="Konghucu">Konghucu</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="alamat">Alamat</Label>
+                      <Input
+                        id="alamat"
+                        name="alamat"
+                        value={editingStudent.alamat}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                )}
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                    Batal
+                  </Button>
+                  <Button onClick={handleSaveEdit}>
+                    Simpan
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </main>
       </div>
