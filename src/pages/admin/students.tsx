@@ -194,7 +194,7 @@ const AdminStudents = () => {
 
             {/* Edit Dialog */}
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Edit Data Mahasiswa</DialogTitle>
                 </DialogHeader>
@@ -332,6 +332,37 @@ const AdminStudents = () => {
                           <SelectItem value="Konghucu">Konghucu</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="fotoProfil">Foto Profil</Label>
+                      <Input
+                        id="fotoProfil"
+                        name="fotoProfil"
+                        type="file"
+                        accept="image/*"
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = () => setEditingStudent((prev: any) => ({ ...prev, fotoProfil: reader.result as string }));
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      {editingStudent.fotoProfil && (
+                        <img src={editingStudent.fotoProfil} alt="Preview" className="mt-2 h-20 w-20 rounded-full object-cover border-2 border-indigo-200 shadow" />
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={editingStudent.password || ''}
+                        onChange={handleInputChange}
+                        placeholder="Masukkan password baru (opsional)"
+                      />
                     </div>
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="alamat">Alamat</Label>
