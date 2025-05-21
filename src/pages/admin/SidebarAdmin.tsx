@@ -25,7 +25,7 @@ const SidebarAdmin = ({ mobile, onCloseSidebar }: SidebarAdminProps) => {
       {/* Sidebar header */}
       <div className="flex items-center justify-between h-16 px-4 border-b border-kampus-secondary">
         <Link to="/admin/dashboard" className="flex items-center space-x-2">
-          <img src="/images/logo-simak.png" alt="Logo SIMAK" className="h-10 w-10 object-contain" />
+          <img src="/images/Poliban_logo1.png" alt="Poliban Logo" className="h-10 w-10 object-contain" />
           <span className="text-xl font-bold">SIMAK Admin</span>
         </Link>
       </div>

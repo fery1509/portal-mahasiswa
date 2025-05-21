@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import SidebarAdmin from "./SidebarAdmin";
+import HeaderAdmin from "./HeaderAdmin";
 
 const dummyStudents = [
   {
@@ -42,67 +44,82 @@ const AdminStudents = () => {
   const [selected, setSelected] = useState<any | null>(null);
 
   return (
-    <div className="py-6 px-4 sm:px-6 md:px-8 max-w-5xl">
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Data Mahasiswa</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>NIM</TableHead>
-                <TableHead>Nama</TableHead>
-                <TableHead>Program Studi</TableHead>
-                <TableHead>Tahun Masuk</TableHead>
-                <TableHead>Aksi</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {dummyStudents.map((mhs) => (
-                <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-blue-50" : ""}>
-                  <TableCell>{mhs.nim}</TableCell>
-                  <TableCell>{mhs.nama}</TableCell>
-                  <TableCell>{mhs.prodi}</TableCell>
-                  <TableCell>{mhs.tahunMasuk}</TableCell>
-                  <TableCell>
-                    <Button size="sm" variant="outline" onClick={() => setSelected(mhs)}>
-                      Lihat
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-      {selected && (
-        <Card className="max-w-3xl">
-          <CardHeader>
-            <CardTitle>Detail Mahasiswa</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col md:flex-row gap-6">
-              <img src={selected.fotoProfil} alt={selected.nama} className="h-32 w-32 rounded-full object-cover border" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 w-full">
-                <div><b>NIM:</b> {selected.nim}</div>
-                <div><b>Nama:</b> {selected.nama}</div>
-                <div><b>Tempat Lahir:</b> {selected.tempatLahir}</div>
-                <div><b>Tanggal Lahir:</b> {selected.tanggalLahir}</div>
-                <div><b>Program Studi:</b> {selected.prodi}</div>
-                <div><b>Dosen Pembimbing:</b> {selected.dosenPembimbing}</div>
-                <div><b>Email:</b> {selected.email}</div>
-                <div><b>Nomor HP:</b> {selected.nomorHp}</div>
-                <div><b>Tahun Masuk:</b> {selected.tahunMasuk}</div>
-                <div><b>Jenis Kelamin:</b> {selected.jenisKelamin}</div>
-                <div><b>Asal:</b> {selected.asal}</div>
-                <div><b>Agama:</b> {selected.agama}</div>
-                <div className="md:col-span-2"><b>Alamat:</b> {selected.alamat}</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+    <div className="h-screen flex overflow-hidden bg-gray-50">
+      {/* Sidebar */}
+      <div className="hidden md:flex md:flex-shrink-0">
+        <div className="flex flex-col w-64">
+          <SidebarAdmin />
+        </div>
+      </div>
+      {/* Mobile sidebar (optional, bisa ditambah jika ingin) */}
+      {/* Main content */}
+      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+        <HeaderAdmin onOpenSidebar={() => {}} />
+        <main className="flex-1 relative overflow-y-auto focus:outline-none">
+          <div className="py-6 px-4 sm:px-6 md:px-8 max-w-5xl">
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Data Mahasiswa</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>NIM</TableHead>
+                      <TableHead>Nama</TableHead>
+                      <TableHead>Program Studi</TableHead>
+                      <TableHead>Tahun Masuk</TableHead>
+                      <TableHead>Aksi</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {dummyStudents.map((mhs) => (
+                      <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-blue-50" : ""}>
+                        <TableCell>{mhs.nim}</TableCell>
+                        <TableCell>{mhs.nama}</TableCell>
+                        <TableCell>{mhs.prodi}</TableCell>
+                        <TableCell>{mhs.tahunMasuk}</TableCell>
+                        <TableCell>
+                          <Button size="sm" variant="outline" onClick={() => setSelected(mhs)}>
+                            Lihat
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+            {selected && (
+              <Card className="max-w-3xl">
+                <CardHeader>
+                  <CardTitle>Detail Mahasiswa</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <img src={selected.fotoProfil} alt={selected.nama} className="h-32 w-32 rounded-full object-cover border" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 w-full">
+                      <div><b>NIM:</b> {selected.nim}</div>
+                      <div><b>Nama:</b> {selected.nama}</div>
+                      <div><b>Tempat Lahir:</b> {selected.tempatLahir}</div>
+                      <div><b>Tanggal Lahir:</b> {selected.tanggalLahir}</div>
+                      <div><b>Program Studi:</b> {selected.prodi}</div>
+                      <div><b>Dosen Pembimbing:</b> {selected.dosenPembimbing}</div>
+                      <div><b>Email:</b> {selected.email}</div>
+                      <div><b>Nomor HP:</b> {selected.nomorHp}</div>
+                      <div><b>Tahun Masuk:</b> {selected.tahunMasuk}</div>
+                      <div><b>Jenis Kelamin:</b> {selected.jenisKelamin}</div>
+                      <div><b>Asal:</b> {selected.asal}</div>
+                      <div><b>Agama:</b> {selected.agama}</div>
+                      <div className="md:col-span-2"><b>Alamat:</b> {selected.alamat}</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </main>
+      </div>
     </div>
   );
 };
