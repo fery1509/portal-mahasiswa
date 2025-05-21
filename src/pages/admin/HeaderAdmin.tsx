@@ -8,13 +8,13 @@ interface HeaderAdminProps {
 
 const HeaderAdmin = ({ onOpenSidebar }: HeaderAdminProps) => {
   return (
-    <header className="bg-white border-b border-gray-200/80 backdrop-blur-sm bg-white/80 sticky top-0 z-30">
+    <header className="bg-gradient-to-r from-white via-indigo-50 to-purple-50 border-b border-gray-200/80 backdrop-blur-sm bg-white/80 sticky top-0 z-30">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <button
               type="button"
-              className="px-4 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+              className="px-4 text-indigo-600 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
               onClick={onOpenSidebar}
             >
               <span className="sr-only">Open sidebar</span>
@@ -27,7 +27,7 @@ const HeaderAdmin = ({ onOpenSidebar }: HeaderAdminProps) => {
                     <Search className="h-5 w-5 text-gray-400" />
                   </div>
                   <Input
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full pl-10 pr-3 py-2 border border-indigo-200 rounded-lg leading-5 bg-white/50 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Search..."
                     type="search"
                   />
@@ -36,9 +36,9 @@ const HeaderAdmin = ({ onOpenSidebar }: HeaderAdminProps) => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5 text-gray-500" />
-              <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+            <Button variant="ghost" size="icon" className="relative text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">
+              <Bell className="h-5 w-5" />
+              <span className="absolute top-1 right-1 h-2 w-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full"></span>
             </Button>
             <div className="flex items-center">
               <div className="relative">
@@ -47,9 +47,9 @@ const HeaderAdmin = ({ onOpenSidebar }: HeaderAdminProps) => {
                   src={`https://ui-avatars.com/api/?name=Admin&background=6366F1&color=fff`}
                   alt="Profile"
                 />
-                <div className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-green-400 rounded-full border-2 border-white"></div>
+                <div className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-2 border-white"></div>
               </div>
-              <span className="hidden md:flex ml-2 text-sm font-medium text-gray-700">
+              <span className="hidden md:flex ml-2 text-sm font-medium text-indigo-700">
                 Admin
               </span>
             </div>

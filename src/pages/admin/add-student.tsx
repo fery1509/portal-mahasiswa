@@ -130,14 +130,14 @@ const AddStudent = () => {
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6 px-4 sm:px-6 md:px-8">
             <div className="pb-5 border-b border-gray-200 max-w-4xl">
-              <h3 className="text-2xl font-bold leading-6 text-gray-900">Tambah Mahasiswa Baru</h3>
-              <p className="mt-2 max-w-4xl text-sm text-gray-500">Silakan isi form di bawah ini untuk menambahkan mahasiswa baru.</p>
+              <h3 className="text-2xl font-bold leading-6 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">Tambah Mahasiswa Baru</h3>
+              <p className="mt-2 max-w-4xl text-sm text-gray-600">Silakan isi form di bawah ini untuk menambahkan mahasiswa baru.</p>
             </div>
             {/* Form tambah mahasiswa */}
             <div className="mt-8 max-w-4xl">
-              <Card className="w-full">
+              <Card className="w-full bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-100 shadow-xl rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
+                  <CardTitle className="flex items-center space-x-2 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">
                     <User className="h-6 w-6" />
                     <span>Form Pendaftaran Mahasiswa</span>
                   </CardTitle>
@@ -146,22 +146,22 @@ const AddStudent = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="nim">NIM<span className="text-red-500">*</span></Label>
-                        <Input id="nim" name="nim" placeholder="Masukkan NIM" value={formData.nim} onChange={handleInputChange} required />
+                        <Label htmlFor="nim" className="text-indigo-700 font-semibold">NIM<span className="text-rose-500">*</span></Label>
+                        <Input id="nim" name="nim" placeholder="Masukkan NIM" value={formData.nim} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="nama">Nama<span className="text-red-500">*</span></Label>
-                        <Input id="nama" name="nama" placeholder="Masukkan nama" value={formData.nama} onChange={handleInputChange} required />
+                        <Label htmlFor="nama" className="text-indigo-700 font-semibold">Nama<span className="text-rose-500">*</span></Label>
+                        <Input id="nama" name="nama" placeholder="Masukkan nama" value={formData.nama} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="tempatLahir">Tempat Lahir<span className="text-red-500">*</span></Label>
-                        <Input id="tempatLahir" name="tempatLahir" placeholder="Masukkan tempat lahir" value={formData.tempatLahir || ''} onChange={handleInputChange} required />
+                        <Label htmlFor="tempatLahir" className="text-indigo-700 font-semibold">Tempat Lahir<span className="text-rose-500">*</span></Label>
+                        <Input id="tempatLahir" name="tempatLahir" placeholder="Masukkan tempat lahir" value={formData.tempatLahir || ''} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="tanggalLahir">Tanggal Lahir<span className="text-red-500">*</span></Label>
+                        <Label htmlFor="tanggalLahir" className="text-indigo-700 font-semibold">Tanggal Lahir<span className="text-rose-500">*</span></Label>
                         <Popover>
                           <PopoverTrigger asChild>
-                            <Button variant="outline" className="w-full flex justify-between items-center">
+                            <Button variant="outline" className="w-full flex justify-between items-center bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm text-gray-700">
                               {formData.tanggalLahir ? (formData.tanggalLahir.toLocaleDateString()) : (<span>Pilih tanggal</span>)}
                             </Button>
                           </PopoverTrigger>
@@ -171,9 +171,9 @@ const AddStudent = () => {
                         </Popover>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="prodi">Program Studi<span className="text-red-500">*</span></Label>
+                        <Label htmlFor="prodi" className="text-indigo-700 font-semibold">Program Studi<span className="text-rose-500">*</span></Label>
                         <Select onValueChange={handleProdiChange} value={formData.prodi} required>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm text-gray-700">
                             <SelectValue placeholder="Pilih program studi" />
                           </SelectTrigger>
                           <SelectContent>
@@ -187,16 +187,16 @@ const AddStudent = () => {
                         </Select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="dosenPembimbing">Dosen Pembimbing<span className="text-red-500">*</span></Label>
-                        <Input id="dosenPembimbing" name="dosenPembimbing" placeholder="Masukkan dosen pembimbing" value={formData.dosenPembimbing || ''} onChange={handleInputChange} required />
+                        <Label htmlFor="dosenPembimbing" className="text-indigo-700 font-semibold">Dosen Pembimbing<span className="text-rose-500">*</span></Label>
+                        <Input id="dosenPembimbing" name="dosenPembimbing" placeholder="Masukkan dosen pembimbing" value={formData.dosenPembimbing || ''} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email<span className="text-red-500">*</span></Label>
-                        <Input id="email" name="email" type="email" placeholder="Masukkan email" value={formData.email || ''} onChange={handleInputChange} required />
+                        <Label htmlFor="email" className="text-indigo-700 font-semibold">Email<span className="text-rose-500">*</span></Label>
+                        <Input id="email" name="email" type="email" placeholder="Masukkan email" value={formData.email || ''} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="nomorHp">Nomor HP<span className="text-red-500">*</span></Label>
-                        <Input id="nomorHp" name="nomorHp" placeholder="Masukkan nomor HP" value={formData.nomorHp || ''} onChange={handleInputChange} required />
+                        <Label htmlFor="nomorHp" className="text-indigo-700 font-semibold">Nomor HP<span className="text-rose-500">*</span></Label>
+                        <Input id="nomorHp" name="nomorHp" placeholder="Masukkan nomor HP" value={formData.nomorHp || ''} onChange={handleInputChange} required className="bg-white/80 border border-indigo-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 rounded-lg shadow-sm placeholder-gray-400" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="tahunMasuk">Tahun Masuk<span className="text-red-500">*</span></Label>

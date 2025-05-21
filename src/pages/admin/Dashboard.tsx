@@ -58,7 +58,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-50">
+    <div className="h-screen flex overflow-hidden bg-gradient-to-br from-gray-50 via-indigo-50/30 to-purple-50/30">
       {/* Sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
       </div>
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-40 flex md:hidden ${sidebarOpen ? 'visible' : 'invisible'}`}>
-        <div className={`fixed inset-0 bg-gray-600 ${sidebarOpen ? 'opacity-75' : 'opacity-0'} transition-opacity duration-300 ease-linear`} onClick={() => setSidebarOpen(false)} />
+        <div className={`fixed inset-0 bg-gradient-to-br from-gray-600 to-gray-800 ${sidebarOpen ? 'opacity-75' : 'opacity-0'} transition-opacity duration-300 ease-linear`} onClick={() => setSidebarOpen(false)} />
         <div className={`relative flex-1 flex flex-col max-w-xs w-full bg-kampus-primary text-white transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition duration-300 ease-in-out`}>
           <SidebarAdmin onCloseSidebar={() => setSidebarOpen(false)} mobile />
         </div>
@@ -78,26 +78,26 @@ const AdminDashboard = () => {
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6 px-4 sm:px-6 md:px-8">
             <div className="pb-5 border-b border-gray-200 max-w-7xl">
-              <h3 className="text-2xl font-bold leading-6 text-gray-900">Welcome to SIMAK Admin</h3>
-              <p className="mt-2 max-w-4xl text-sm text-gray-500">Selamat datang di sistem administrasi akademik.</p>
+              <h3 className="text-2xl font-bold leading-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Welcome to SIMAK Admin</h3>
+              <p className="mt-2 max-w-4xl text-sm text-gray-600">Selamat datang di sistem administrasi akademik.</p>
             </div>
             {/* Statistik */}
             <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl">
               {stats.map((stat) => (
-                <Card key={stat.label} className="hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
+                <Card key={stat.label} className="hover:shadow-lg transition-all duration-200 hover:scale-[1.02] bg-gradient-to-br from-white to-indigo-50/50 border-indigo-100">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-gray-500">
+                    <CardTitle className="text-sm font-medium text-indigo-600">
                       {stat.label}
                     </CardTitle>
-                    <stat.icon className={`h-4 w-4 ${stat.changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`} />
+                    <stat.icon className={`h-4 w-4 ${stat.changeType === 'increase' ? 'text-emerald-500' : 'text-rose-500'}`} />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-2xl font-bold text-indigo-900">{stat.value}</div>
                     <div className="flex items-center mt-1">
-                      <span className={`text-sm font-medium ${stat.changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}>
+                      <span className={`text-sm font-medium ${stat.changeType === 'increase' ? 'text-emerald-500' : 'text-rose-500'}`}>
                         {stat.change}
                       </span>
-                      <span className="text-sm text-gray-500 ml-2">{stat.description}</span>
+                      <span className="text-sm text-indigo-600/70 ml-2">{stat.description}</span>
                     </div>
                   </CardContent>
                 </Card>
