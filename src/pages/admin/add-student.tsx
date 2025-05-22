@@ -130,14 +130,14 @@ const AddStudent = () => {
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6 px-4 sm:px-6 md:px-8">
             <div className="pb-5 border-b border-gray-200 max-w-4xl">
-              <h3 className="text-2xl font-bold leading-6 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">Tambah Mahasiswa Baru</h3>
+              <h3 className="text-2xl font-bold leading-6 text-gray-900">Tambah Mahasiswa Baru</h3>
               <p className="mt-2 max-w-4xl text-sm text-gray-600">Silakan isi form di bawah ini untuk menambahkan mahasiswa baru.</p>
             </div>
             {/* Form tambah mahasiswa */}
             <div className="mt-8 max-w-4xl">
               <Card className="w-full bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-100 shadow-xl rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+                  <CardTitle className="flex items-center space-x-2 text-gray-900">
                     <User className="h-1 w-1" />
                     <span>Form Pendaftaran Mahasiswa</span>
                   </CardTitle>

@@ -125,7 +125,7 @@ const AdminStudents = () => {
           <div className="py-6 px-4 sm:px-6 md:px-8 max-w-5xl">
             <Card className="mb-8 bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-100 shadow-xl rounded-2xl">
               <CardHeader>
-                <CardTitle className="bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">Data Mahasiswa</CardTitle>
+                <CardTitle className="text-gray-900">Data Mahasiswa</CardTitle>
               </CardHeader>
               <div className="mb-4 flex justify-start">
                 <Input
