@@ -44,6 +44,7 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
   };
 
   return (
+    <>
     <header className="bg-white shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
@@ -56,8 +57,8 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
               <span className="sr-only">Open sidebar</span>
               <Menu className="h-6 w-6" />
             </button>
-            <div className="flex-1 flex items-center justify-center md:justify-start">
-              <div className="flex-shrink-0 flex items-center"></div>
+            <div className="flex items-center ml-1,5">
+              <span className="text-xl font-extrabold text-gray-700 tracking-tight">Sistem Informasi Mahasiswa Kampus</span>
             </div>
           </div>
           <div className="flex items-center">
@@ -122,6 +123,8 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
         </div>
       </div>
     </header>
+    <div className="w-full h-[1px] bg-gray-400" />
+    </>
   );
 };
 
