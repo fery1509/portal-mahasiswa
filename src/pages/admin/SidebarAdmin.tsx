@@ -18,7 +18,7 @@ const SidebarAdmin = ({ mobile, onCloseSidebar }: SidebarAdminProps) => {
 
   const handleLogout = () => {
     localStorage.removeItem("kampusAdmin");
-    window.location.href = "/admin/login";
+    window.location.href = "/login";
   };
 
   return (

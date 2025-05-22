@@ -138,7 +138,7 @@ const AddStudent = () => {
               <Card className="w-full bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-100 shadow-xl rounded-2xl">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-                    <User className="h-6 w-6" />
+                    <User className="h-1 w-1" />
                     <span>Form Pendaftaran Mahasiswa</span>
                   </CardTitle>
                 </CardHeader>

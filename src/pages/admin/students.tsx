@@ -63,6 +63,7 @@ const AdminStudents = () => {
   const [students, setStudents] = useState(dummyStudents);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingStudent, setEditingStudent] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleView = (student: any) => {
     setSelected(student);
@@ -126,6 +127,15 @@ const AdminStudents = () => {
               <CardHeader>
                 <CardTitle className="bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">Data Mahasiswa</CardTitle>
               </CardHeader>
+              <div className="mb-4 flex justify-start">
+                <Input
+                  className="w-full max-w-xs border border-indigo-200 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 ml-6"
+                  placeholder="Search..."
+                  type="search"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                />
+              </div>
               <CardContent>
                 <Table>
                   <TableHeader>
@@ -138,27 +148,37 @@ const AdminStudents = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {students.map((mhs) => (
-                      <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-indigo-50/60" : "hover:bg-indigo-50/40 transition"}>
-                        <TableCell>{mhs.nim}</TableCell>
-                        <TableCell>{mhs.nama}</TableCell>
-                        <TableCell>{mhs.prodi}</TableCell>
-                        <TableCell>{mhs.tahunMasuk}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline" className="hover:bg-indigo-100 group" onClick={() => handleView(mhs)}>
-                              <Eye className="h-4 w-4 text-indigo-500 group-hover:text-indigo-700" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="hover:bg-purple-100 group" onClick={() => handleEdit(mhs)}>
-                              <Pencil className="h-4 w-4 text-purple-500 group-hover:text-purple-700" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="hover:bg-rose-100 group" onClick={() => handleDelete(mhs)}>
-                              <Trash2 className="h-4 w-4 text-rose-500 group-hover:text-rose-700" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {students
+                      .filter((mhs) => {
+                        const q = searchQuery.toLowerCase();
+                        return (
+                          mhs.nim.toLowerCase().includes(q) ||
+                          mhs.nama.toLowerCase().includes(q) ||
+                          mhs.prodi.toLowerCase().includes(q) ||
+                          mhs.tahunMasuk.toLowerCase().includes(q)
+                        );
+                      })
+                      .map((mhs) => (
+                        <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-indigo-50/60" : "hover:bg-indigo-50/40 transition"}>
+                          <TableCell>{mhs.nim}</TableCell>
+                          <TableCell>{mhs.nama}</TableCell>
+                          <TableCell>{mhs.prodi}</TableCell>
+                          <TableCell>{mhs.tahunMasuk}</TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button size="sm" variant="outline" className="hover:bg-indigo-100 group" onClick={() => handleView(mhs)}>
+                                <Eye className="h-4 w-4 text-indigo-500 group-hover:text-indigo-700" />
+                              </Button>
+                              <Button size="sm" variant="outline" className="hover:bg-purple-100 group" onClick={() => handleEdit(mhs)}>
+                                <Pencil className="h-4 w-4 text-purple-500 group-hover:text-purple-700" />
+                              </Button>
+                              <Button size="sm" variant="outline" className="hover:bg-rose-100 group" onClick={() => handleDelete(mhs)}>
+                                <Trash2 className="h-4 w-4 text-rose-500 group-hover:text-rose-700" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </CardContent>
