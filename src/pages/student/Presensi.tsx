@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
@@ -7,13 +6,13 @@ import {
   ChevronDown, ChevronUp, Search 
 } from 'lucide-react';
 
-type AttendanceStatusFilter = 'all' | 'present' | 'absent' | 'late' | 'excused';
+type PresensiStatusFilter = 'all' | 'present' | 'absent' | 'late' | 'excused';
 
-const StudentAttendance = () => {
+const StudentPresensi = () => {
   const { user } = useAuth();
   const { getStudentCourses, getStudentAttendance, markAttendance } = useData();
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<AttendanceStatusFilter>('all');
+  const [statusFilter, setStatusFilter] = useState<PresensiStatusFilter>('all');
   const [expandedCourse, setExpandedCourse] = useState<string | null>(null);
 
   // Get student courses and attendance
@@ -184,7 +183,7 @@ const StudentAttendance = () => {
             name="status"
             className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-kampus-primary focus:border-kampus-primary sm:text-sm rounded-md"
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as AttendanceStatusFilter)}
+            onChange={(e) => setStatusFilter(e.target.value as PresensiStatusFilter)}
           >
             <option value="all">Semua Status</option>
             <option value="present">Hadir</option>
@@ -296,4 +295,4 @@ const StudentAttendance = () => {
   );
 };
 
-export default StudentAttendance;
+export default StudentPresensi;

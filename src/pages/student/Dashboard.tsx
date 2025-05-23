@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { BookOpen, Calendar, CheckCircle, Clock, FileText, Award } from 'lucide-react';
@@ -63,6 +62,9 @@ const StudentDashboard = () => {
     }
   ];
 
+  // Mock status for UKT payment
+  const isUKTPaid = true; // This should be replaced with actual logic to check UKT payment status
+
   return (
     <div className="animate-fade-in">
       <div className="pb-5 border-b border-gray-200">
@@ -78,6 +80,10 @@ const StudentDashboard = () => {
           <div>
             <h2 className="text-xl font-semibold">Selamat Datang, {user?.name}!</h2>
             <p className="mt-1">{user?.studentData?.programStudi} - Semester {user?.studentData?.semester}</p>
+            <p className="mt-2 text-sm font-semibold flex items-center gap-1" style={{ color: isUKTPaid ? '#6ee7b7' : '#fca5a5' }}>
+              Status: {isUKTPaid ? 'Aktif' : 'Tidak Aktif'}
+              {isUKTPaid && <CheckCircle className="inline h-4 w-4 text-emerald-400 ml-1" />}
+            </p>
           </div>
           <div className="mt-4 md:mt-0">
             <p className="text-sm">NIM: {user?.studentData?.nim}</p>
@@ -110,7 +116,7 @@ const StudentDashboard = () => {
           </div>
           <div className="bg-gray-50 px-5 py-3">
             <div className="text-sm">
-              <Link to="/courses" className="font-medium text-kampus-primary hover:text-kampus-accent">
+              <Link to="/matakuliah" className="font-medium text-kampus-primary hover:text-kampus-accent">
                 Lihat detail
               </Link>
             </div>
@@ -139,7 +145,7 @@ const StudentDashboard = () => {
           </div>
           <div className="bg-gray-50 px-5 py-3">
             <div className="text-sm">
-              <Link to="/academic-record" className="font-medium text-kampus-primary hover:text-kampus-accent">
+              <Link to="/khs" className="font-medium text-kampus-primary hover:text-kampus-accent">
                 Lihat KHS
               </Link>
             </div>
@@ -168,7 +174,7 @@ const StudentDashboard = () => {
           </div>
           <div className="bg-gray-50 px-5 py-3">
             <div className="text-sm">
-              <Link to="/attendance" className="font-medium text-kampus-primary hover:text-kampus-accent">
+              <Link to="/presensi" className="font-medium text-kampus-primary hover:text-kampus-accent">
                 Lihat presensi
               </Link>
             </div>
@@ -197,7 +203,7 @@ const StudentDashboard = () => {
           </div>
           <div className="bg-gray-50 px-5 py-3">
             <div className="text-sm">
-              <Link to="/academic-record" className="font-medium text-kampus-primary hover:text-kampus-accent">
+              <Link to="/khs" className="font-medium text-kampus-primary hover:text-kampus-accent">
                 Lihat transkrip
               </Link>
             </div>
@@ -246,7 +252,7 @@ const StudentDashboard = () => {
           </div>
           <div className="px-5 py-3 bg-gray-50 text-right rounded-b-lg">
             <Link
-              to="/courses"
+              to="/matakuliah"
               className="text-sm font-medium text-kampus-primary hover:text-kampus-accent"
             >
               Lihat semua jadwal

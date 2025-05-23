@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
@@ -15,7 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 
-const CourseRegistration = () => {
+const KRS = () => {
   const { user } = useAuth();
   const { courses, submitCourseRegistration, currentTerm } = useData();
   const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
@@ -207,4 +206,4 @@ const CourseRegistration = () => {
   );
 };
 
-export default CourseRegistration;
+export default KRS;

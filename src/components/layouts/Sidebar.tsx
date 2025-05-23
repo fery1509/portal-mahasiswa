@@ -37,10 +37,11 @@ const Sidebar = ({ mobile, onCloseSidebar }: SidebarProps) => {
   const navItems = [
     { name: "Dashboard", icon: Home, path: "/dashboard" },
     { name: "Profil", icon: User, path: "/profile" },
-    { name: "Mata Kuliah", icon: BookOpen, path: "/courses" },
-    { name: "Presensi", icon: Calendar, path: "/attendance" },
-    { name: "KRS", icon: FileText, path: "/course-registration" },
-    { name: "KHS", icon: GraduationCap, path: "/academic-record" },
+    { name: "Mata Kuliah", icon: BookOpen, path: "/MataKuliah" },
+    { name: "Presensi", icon: Calendar, path: "/Presensi" },
+    { name: "KRS", icon: FileText, path: "/KRS" },
+    { name: "KHS", icon: GraduationCap, path: "/KHS" },
+    
   ];
 
   // Fungsi untuk menjalankan suara hover

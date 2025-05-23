@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const AcademicRecord = () => {
+const KHS = () => {
   const { user } = useAuth();
   const { getStudentCourses, enrollments, currentTerm } = useData();
 
@@ -373,4 +373,4 @@ const AcademicRecord = () => {
   );
 };
 
-export default AcademicRecord;
+export default KHS;

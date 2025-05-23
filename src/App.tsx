@@ -14,10 +14,10 @@ import Index from "./pages/Index";
 // Student Pages
 import StudentDashboard from "./pages/student/Dashboard";
 import StudentProfile from "./pages/student/Profile";
-import StudentCourses from "./pages/student/Courses";
-import StudentAttendance from "./pages/student/Attendance";
-import CourseRegistration from "./pages/student/CourseRegistration";
-import AcademicRecord from "./pages/student/AcademicRecord";
+import MataKuliah from "./pages/student/MataKuliah";
+import StudentPresensi from "./pages/student/Presensi";
+import KRS from "./pages/student/KRS";
+import KHS from "./pages/student/KHS";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -79,31 +79,31 @@ const App = () => (
                   </AppLayout>
                 </ProtectedRoute>
               } />
-              <Route path="/courses" element={
+              <Route path="/matakuliah" element={
                 <ProtectedRoute>
                   <AppLayout>
-                    <StudentCourses />
+                    <MataKuliah />
                   </AppLayout>
                 </ProtectedRoute>
               } />
-              <Route path="/attendance" element={
+              <Route path="/presensi" element={
                 <ProtectedRoute>
                   <AppLayout>
-                    <StudentAttendance />
+                    <StudentPresensi />
                   </AppLayout>
                 </ProtectedRoute>
               } />
-              <Route path="/course-registration" element={
+              <Route path="/krs" element={
                 <ProtectedRoute>
                   <AppLayout>
-                    <CourseRegistration />
+                    <KRS />
                   </AppLayout>
                 </ProtectedRoute>
               } />
-              <Route path="/academic-record" element={
+              <Route path="/khs" element={
                 <ProtectedRoute>
                   <AppLayout>
-                    <AcademicRecord />
+                    <KHS />
                   </AppLayout>
                 </ProtectedRoute>
               } />

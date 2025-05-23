@@ -10,6 +10,7 @@ const navItems = [
   { name: "Dashboard", icon: Home, path: "/admin/dashboard" },
   { name: "Tambah Mahasiswa", icon: UserPlus, path: "/admin/add-student" },
   { name: "Data Mahasiswa", icon: Users, path: "/admin/students" },
+  
 ];
 
 const SidebarAdmin = ({ mobile, onCloseSidebar }: SidebarAdminProps) => {

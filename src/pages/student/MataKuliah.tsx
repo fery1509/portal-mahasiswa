@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
@@ -6,7 +5,7 @@ import {
   Book, Calendar, Clock, User, FileText, Search, CheckCircle, XCircle, AlertCircle
 } from 'lucide-react';
 
-const StudentCourses = () => {
+const MataKuliah = () => {
   const { user } = useAuth();
   const { getStudentCourses, getStudentEnrollment } = useData();
   const [searchQuery, setSearchQuery] = useState('');
@@ -199,4 +198,4 @@ const StudentCourses = () => {
   );
 };
 
-export default StudentCourses;
+export default MataKuliah;
