@@ -1,6 +1,6 @@
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
-import { BookOpen, Calendar, CheckCircle, Clock, FileText, Award } from 'lucide-react';
+import { BookOpen, Calendar, CheckCircle, Clock, FileText, Award, BarChart2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const StudentDashboard = () => {
@@ -67,271 +67,108 @@ const StudentDashboard = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="pb-5 border-b border-gray-200">
-        <h3 className="text-2xl font-bold leading-6 text-gray-900">Dashboard Mahasiswa</h3>
-        <p className="mt-2 max-w-4xl text-sm text-gray-500">
-          Semester Aktif: {currentTerm.name}
-        </p>
-      </div>
-
-      {/* Welcome banner */}
-      <div className="mt-6 rounded-lg bg-gradient-to-r from-kampus-primary to-kampus-secondary p-6 shadow-md text-white">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold">Selamat Datang, {user?.name}!</h2>
-            <p className="mt-1">{user?.studentData?.programStudi} - Semester {user?.studentData?.semester}</p>
-            <p className="mt-2 text-sm font-semibold flex items-center gap-1" style={{ color: isUKTPaid ? '#6ee7b7' : '#fca5a5' }}>
-              Status: {isUKTPaid ? 'Aktif' : 'Tidak Aktif'}
-              {isUKTPaid && <CheckCircle className="inline h-4 w-4 text-emerald-400 ml-1" />}
-            </p>
-          </div>
-          <div className="mt-4 md:mt-0">
-            <p className="text-sm">NIM: {user?.studentData?.nim}</p>
-            <p className="text-sm mt-1">Dosen Wali: {user?.studentData?.dosenWali}</p>
-          </div>
+      {/* Banner Selamat Datang */}
+      <div className="rounded-xl bg-gradient-to-r from-kampus-primary to-kampus-secondary p-6 md:p-8 shadow-lg text-white flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div>
+          <h2 className="text-2xl md:text-2xl font-bold">Selamat Datang, {user?.name}!</h2>
+          <p className="mt-1 text-base md:text-lg">{user?.studentData?.programStudi} - Semester {user?.studentData?.semester}</p>
+          <span className="inline-block mt-3 px-3 py-1 rounded-full text-sm font-semibold bg-emerald-500/90 text-white">Status: Aktif {isUKTPaid && <CheckCircle className="inline h-4 w-4 ml-1 text-white" />}</span>
+        </div>
+        <div className="mt-6 md:mt-0 text-right space-y-1">
+          <div className="text-sm md:text-base font-medium">NIM: <span className="font-bold tracking-wide">{user?.studentData?.nim}</span></div>
+          <div className="text-sm md:text-base font-medium">Dosen Wali: <span className="font-bold">{user?.studentData?.dosenWali}</span></div>
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="bg-white overflow-hidden shadow rounded-lg hover-scale">
-          <div className="p-5">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <BookOpen className="h-6 w-6 text-gray-400" />
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Mata Kuliah Diambil
-                  </dt>
-                  <dd>
-                    <div className="text-lg font-medium text-gray-900">
-                      {studentCourses.length}
-                    </div>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-50 px-5 py-3">
-            <div className="text-sm">
-              <Link to="/matakuliah" className="font-medium text-kampus-primary hover:text-kampus-accent">
-                Lihat detail
-              </Link>
+      {/* Statistik */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="bg-white rounded-xl shadow p-5 flex flex-col items-start border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <div className="flex items-center mb-2"><FileText className="h-5 w-5 text-indigo-500 mr-2" /><span className="text-sm font-medium text-gray-500">Mata Kuliah Diambil</span></div>
+          <div className="text-2xl font-bold text-indigo-900 ml-2">{studentCourses.length}</div>
+          <div className="w-full pt-2 px-0">
+            <div className="shadow-[0_4px_8px_-4px_rgba(99,102,241,0.15)] rounded-b-xl">
+              <Link to="/matakuliah" className="block text-xs text-indigo-600 hover:underline px-4 py-2">Lihat detail</Link>
             </div>
           </div>
         </div>
-
-        <div className="bg-white overflow-hidden shadow rounded-lg hover-scale">
-          <div className="p-5">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <FileText className="h-6 w-6 text-gray-400" />
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Total SKS
-                  </dt>
-                  <dd>
-                    <div className="text-lg font-medium text-gray-900">
-                      {totalCredits}
-                    </div>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-50 px-5 py-3">
-            <div className="text-sm">
-              <Link to="/khs" className="font-medium text-kampus-primary hover:text-kampus-accent">
-                Lihat KHS
-              </Link>
+        <div className="bg-white rounded-xl shadow p-5 flex flex-col items-start border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <div className="flex items-center mb-2"><BarChart2 className="h-5 w-5 text-purple-500 mr-2" /><span className="text-sm font-medium text-gray-500">Total SKS</span></div>
+          <div className="text-2xl font-bold text-indigo-900 ml-2">{totalCredits}</div>
+          <div className="w-full pt-2 px-0">
+            <div className="shadow-[0_4px_8px_-4px_rgba(99,102,241,0.15)] rounded-b-xl">
+              <Link to="/khs" className="block text-xs text-indigo-600 hover:underline px-4 py-2">Lihat KHS</Link>
             </div>
           </div>
         </div>
-
-        <div className="bg-white overflow-hidden shadow rounded-lg hover-scale">
-          <div className="p-5">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <CheckCircle className="h-6 w-6 text-gray-400" />
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Rata-rata Kehadiran
-                  </dt>
-                  <dd>
-                    <div className="text-lg font-medium text-gray-900">
-                      {averageAttendance.toFixed(1)}%
-                    </div>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-50 px-5 py-3">
-            <div className="text-sm">
-              <Link to="/presensi" className="font-medium text-kampus-primary hover:text-kampus-accent">
-                Lihat presensi
-              </Link>
+        <div className="bg-white rounded-xl shadow p-5 flex flex-col items-start border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <div className="flex items-center mb-2"><CheckCircle className="h-5 w-5 text-emerald-500 mr-2" /><span className="text-sm font-medium text-gray-500">Rata-rata Kehadiran</span></div>
+          <div className="text-2xl font-bold text-indigo-900 ml-2">{averageAttendance.toFixed(1)}%</div>
+          <div className="w-full pt-2 px-0">
+            <div className="shadow-[0_4px_8px_-4px_rgba(99,102,241,0.15)] rounded-b-xl">
+              <Link to="/presensi" className="block text-xs text-indigo-600 hover:underline px-4 py-2">Lihat presensi</Link>
             </div>
           </div>
         </div>
-
-        <div className="bg-white overflow-hidden shadow rounded-lg hover-scale">
-          <div className="p-5">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <Award className="h-6 w-6 text-gray-400" />
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    IPK
-                  </dt>
-                  <dd>
-                    <div className="text-lg font-medium text-gray-900">
-                      3.75
-                    </div>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-50 px-5 py-3">
-            <div className="text-sm">
-              <Link to="/khs" className="font-medium text-kampus-primary hover:text-kampus-accent">
-                Lihat transkrip
-              </Link>
+        <div className="bg-white rounded-xl shadow p-5 flex flex-col items-start border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <div className="flex items-center mb-2"><Award className="h-5 w-5 text-yellow-500 mr-2" /><span className="text-sm font-medium text-gray-500">IPK</span></div>
+          <div className="text-2xl font-bold text-indigo-900 ml-2">3.75</div>
+          <div className="w-full pt-2 px-0">
+            <div className="shadow-[0_4px_8px_-4px_rgba(99,102,241,0.15)] rounded-b-xl">
+              <Link to="/khs" className="block text-xs text-indigo-600 hover:underline px-4 py-2">Lihat transkrip</Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Upcoming schedule & recent activity */}
-      <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
-        <div className="bg-white shadow rounded-lg lg:col-span-2">
-          <div className="px-5 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Jadwal Kuliah Mendatang</h3>
-          </div>
-          <div className="px-5 py-3">
-            {upcomingCourses.length > 0 ? (
-              <ul className="divide-y divide-gray-200">
-                {upcomingCourses.map((course) => (
-                  <li key={course.id} className="py-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <Clock className="h-6 w-6 text-kampus-primary" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
-                          {course.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {course.time} • {course.room}
-                        </p>
-                      </div>
-                      <div>
-                        <a
-                          href="#"
-                          className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
-                        >
-                          Detail
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="py-4 text-sm text-gray-500">Tidak ada jadwal kuliah dalam waktu dekat.</p>
-            )}
-          </div>
-          <div className="px-5 py-3 bg-gray-50 text-right rounded-b-lg">
-            <Link
-              to="/matakuliah"
-              className="text-sm font-medium text-kampus-primary hover:text-kampus-accent"
-            >
-              Lihat semua jadwal
-            </Link>
-          </div>
+      {/* Jadwal Kuliah Mendatang & Aktivitas Terbaru */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Jadwal Kuliah Mendatang */}
+        <div className="bg-white rounded-xl shadow p-6 lg:col-span-2 border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Jadwal Kuliah Mendatang</h3>
+          {upcomingCourses.length > 0 ? (
+            <ul className="space-y-4">
+              {upcomingCourses.map((course) => (
+                <li key={course.id} className="flex items-center justify-between border-b last:border-b-0 pb-3">
+                  <div>
+                    <div className="font-medium text-indigo-800">{course.name}</div>
+                    <div className="text-sm text-gray-500">{course.time} • {course.room}</div>
+                  </div>
+                  <a href="#" className="inline-flex items-center px-3 py-1 border border-indigo-200 text-xs font-medium rounded-md text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">Detail</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-gray-500">Tidak ada jadwal kuliah dalam waktu dekat.</p>
+          )}
         </div>
-
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-5 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Aktivitas Terbaru</h3>
-          </div>
-          <div className="px-5 py-3">
-            {recentActivity.length > 0 ? (
-              <ul className="divide-y divide-gray-200">
-                {recentActivity.map((activity) => (
-                  <li key={activity.id} className="py-3">
-                    {activity.type === 'attendance' && (
-                      <div className="flex items-start space-x-3">
-                        <Calendar className="h-5 w-5 text-green-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            Presensi {activity.course}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(activity.date).toLocaleDateString('id-ID', { 
-                              weekday: 'long', 
-                              year: 'numeric', 
-                              month: 'long', 
-                              day: 'numeric' 
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {activity.type === 'grade' && (
-                      <div className="flex items-start space-x-3">
-                        <Award className="h-5 w-5 text-indigo-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            Nilai {activity.assignment}: {activity.grade}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {activity.course}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {activity.type === 'announcement' && (
-                      <div className="flex items-start space-x-3">
-                        <FileText className="h-5 w-5 text-amber-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            {activity.title}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(activity.date).toLocaleDateString('id-ID', { 
-                              year: 'numeric', 
-                              month: 'long', 
-                              day: 'numeric' 
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="py-4 text-sm text-gray-500">Tidak ada aktivitas terbaru.</p>
-            )}
-          </div>
-          <div className="px-5 py-3 bg-gray-50 text-right rounded-b-lg">
-            <Link
-              to="#"
-              className="text-sm font-medium text-kampus-primary hover:text-kampus-accent"
-            >
-              Lihat semua aktivitas
-            </Link>
-          </div>
+        {/* Aktivitas Terbaru */}
+        <div className="bg-white rounded-xl shadow p-6 border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300 cursor-pointer">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Aktivitas Terbaru</h3>
+          {recentActivity.length > 0 ? (
+            <ul className="space-y-4">
+              {recentActivity.map((activity) => (
+                <li key={activity.id} className="flex items-start gap-3">
+                  {activity.type === 'attendance' && <CheckCircle className="h-5 w-5 text-emerald-500 mt-1" />}
+                  {activity.type === 'grade' && <Award className="h-5 w-5 text-yellow-500 mt-1" />}
+                  {activity.type === 'announcement' && <FileText className="h-5 w-5 text-blue-500 mt-1" />}
+                  <div>
+                    <div className="font-medium text-gray-900">
+                      {activity.type === 'attendance' && `Presensi ${activity.course}`}
+                      {activity.type === 'grade' && `Nilai ${activity.assignment}: ${activity.grade}`}
+                      {activity.type === 'announcement' && activity.title}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {activity.type === 'attendance' && new Date(activity.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                      {activity.type === 'grade' && activity.course}
+                      {activity.type === 'announcement' && new Date(activity.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-gray-500">Tidak ada aktivitas terbaru.</p>
+          )}
         </div>
       </div>
     </div>
