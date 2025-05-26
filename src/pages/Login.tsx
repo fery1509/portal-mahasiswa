@@ -5,17 +5,11 @@ import { Eye, EyeOff, User, Users } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Login = () => {
-  // Student login states
-  const [nim, setNim] = useState("");
-  
-  // Admin login states
-  const [nip, setNip] = useState("");
-  
-  // Common states
+  // Combined login states
+  const [input, setInput] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [loginMode, setLoginMode] = useState<"student" | "admin">("student");
 
   const { login, adminLogin, loading, error } = useAuth();
   const navigate = useNavigate();
@@ -30,28 +24,20 @@ const Login = () => {
     setErrorMsg(null);
 
     try {
-      if (loginMode === "student") {
-        await login(nim, password);
-        // Cek apakah login berhasil (user sudah terisi di localStorage)
-        if (localStorage.getItem("kampusUser")) {
-          navigate("/dashboard");
-        }
-      } else {
-        await adminLogin(nip, password);
-        // Cek apakah login berhasil (admin sudah terisi di localStorage)
+      if (input === "admin123") {
+        await adminLogin(input, password);
         if (localStorage.getItem("kampusAdmin")) {
           navigate("/admin/dashboard");
         }
+      } else {
+        await login(input, password);
+        if (localStorage.getItem("kampusUser")) {
+          navigate("/dashboard");
+        }
       }
     } catch (err) {
-      setErrorMsg(loginMode === "student" ? "NIM atau kata sandi tidak valid" : "NIP atau kata sandi tidak valid");
+      setErrorMsg("Input atau kata sandi tidak valid");
     }
-  };
-  
-  const handleModeChange = (value: string) => {
-    setErrorMsg(null);
-    setPassword("");
-    setLoginMode(value as "student" | "admin");
   };
 
   return (
@@ -98,66 +84,28 @@ const Login = () => {
               Akses Mudah, Akademik Lancar
             </p>
           </div>
-          
-          {/* Login Type Tabs */}
-          <div className="mt-6">
-            <Tabs defaultValue="student" value={loginMode} onValueChange={handleModeChange} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-white/20">
-                <TabsTrigger value="student" className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  <span>Mahasiswa</span>
-                </TabsTrigger>
-                <TabsTrigger value="admin" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span>Admin</span>
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
 
           <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-5">
-              {loginMode === "student" ? (
-                <div>
-                  <label
-                    htmlFor="nim"
-                    className="block text-sm font-medium leading-6 text-white"
-                  >
-                    NIM
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="nim"
-                      name="nim"
-                      type="text"
-                      required
-                      className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
-                      value={nim}
-                      onChange={(e) => setNim(e.target.value)}
-                    />
-                  </div>
+              <div>
+                <label
+                  htmlFor="input"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
+                  NIM
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="input"
+                    name="input"
+                    type="text"
+                    required
+                    className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
                 </div>
-              ) : (
-                <div>
-                  <label
-                    htmlFor="nip"
-                    className="block text-sm font-medium leading-6 text-white"
-                  >
-                    NIP
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="nip"
-                      name="nip"
-                      type="text"
-                      required
-                      className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 bg-white/50 backdrop-blur-sm placeholder:text-gray-500 focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
-                      value={nip}
-                      onChange={(e) => setNip(e.target.value)}
-                    />
-                  </div>
-                </div>
-              )}
+              </div>
 
               <div>
                 <label
@@ -202,7 +150,7 @@ const Login = () => {
 
             {(error || errorMsg) && (
               <div className="bg-red-500/50 backdrop-blur-sm border border-red-300/50 text-white px-4 py-3 rounded-lg text-sm">
-                {errorMsg || (error && "NIM atau kata sandi tidak valid")}
+                {errorMsg || (error && "Input atau kata sandi tidak valid")}
               </div>
             )}
 
@@ -213,8 +161,6 @@ const Login = () => {
             >
               {loading ? "Memproses..." : "Masuk"}
             </button>
-
-
           </form>
         </div>
       </div>
