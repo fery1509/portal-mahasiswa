@@ -111,10 +111,10 @@ const AdminStudents = () => {
   };
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gradient-to-br from-gray-50 via-indigo-50/30 to-purple-50/30">
+    <div className="h-screen flex overflow-hidden bg-white">
       {/* Sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
-        <div className="flex flex-col w-64">
+        <div className="flex flex-col w-64 border-r border-white/20">
           <SidebarAdmin />
         </div>
       </div>
@@ -123,13 +123,13 @@ const AdminStudents = () => {
         <HeaderAdmin onOpenSidebar={() => {}} />
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6 px-4 sm:px-6 md:px-8 max-w-5xl">
-            <Card className="mb-8 bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-100 shadow-xl rounded-2xl">
+            <Card className="mb-8 bg-white border border-blue-800 shadow-xl rounded-2xl">
               <CardHeader>
-                <CardTitle className="text-gray-900">Data Mahasiswa</CardTitle>
+                <CardTitle className="text-blue-900">Data Mahasiswa</CardTitle>
               </CardHeader>
               <div className="mb-4 flex justify-start">
                 <Input
-                  className="w-full max-w-xs border border-indigo-200 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 ml-6"
+                  className="w-full max-w-xs border border-blue-200 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ml-6"
                   placeholder="Search..."
                   type="search"
                   value={searchQuery}
@@ -140,11 +140,11 @@ const AdminStudents = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-indigo-700 font-bold bg-indigo-50/40">NIM</TableHead>
-                      <TableHead className="text-indigo-700 font-bold bg-indigo-50/40">Nama</TableHead>
-                      <TableHead className="text-indigo-700 font-bold bg-indigo-50/40">Program Studi</TableHead>
-                      <TableHead className="text-indigo-700 font-bold bg-indigo-50/40">Tahun Masuk</TableHead>
-                      <TableHead className="text-indigo-700 font-bold bg-indigo-50/40">Aksi</TableHead>
+                      <TableHead className="text-blue-700 font-bold bg-blue-50/40">NIM</TableHead>
+                      <TableHead className="text-blue-700 font-bold bg-blue-50/40">Nama</TableHead>
+                      <TableHead className="text-blue-700 font-bold bg-blue-50/40">Program Studi</TableHead>
+                      <TableHead className="text-blue-700 font-bold bg-blue-50/40">Tahun Masuk</TableHead>
+                      <TableHead className="text-blue-700 font-bold bg-blue-50/40">Aksi</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -159,18 +159,18 @@ const AdminStudents = () => {
                         );
                       })
                       .map((mhs) => (
-                        <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-indigo-50/60" : "hover:bg-indigo-50/40 transition"}>
+                        <TableRow key={mhs.nim} className={selected?.nim === mhs.nim ? "bg-blue-50/60" : "hover:bg-blue-50/40 transition"}>
                           <TableCell>{mhs.nim}</TableCell>
                           <TableCell>{mhs.nama}</TableCell>
                           <TableCell>{mhs.prodi}</TableCell>
                           <TableCell>{mhs.tahunMasuk}</TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button size="sm" variant="outline" className="hover:bg-indigo-100 group" onClick={() => handleView(mhs)}>
-                                <Eye className="h-4 w-4 text-indigo-500 group-hover:text-indigo-700" />
+                              <Button size="sm" variant="outline" className="hover:bg-blue-100 group" onClick={() => handleView(mhs)}>
+                                <Eye className="h-4 w-4 text-blue-500 group-hover:text-blue-700" />
                               </Button>
-                              <Button size="sm" variant="outline" className="hover:bg-purple-100 group" onClick={() => handleEdit(mhs)}>
-                                <Pencil className="h-4 w-4 text-purple-500 group-hover:text-purple-700" />
+                              <Button size="sm" variant="outline" className="hover:bg-blue-100 group" onClick={() => handleEdit(mhs)}>
+                                <Pencil className="h-4 w-4 text-blue-900 group-hover:text-blue-700" />
                               </Button>
                               <Button size="sm" variant="outline" className="hover:bg-rose-100 group" onClick={() => handleDelete(mhs)}>
                                 <Trash2 className="h-4 w-4 text-rose-500 group-hover:text-rose-700" />
@@ -185,16 +185,16 @@ const AdminStudents = () => {
             </Card>
             
             {selected && (
-              <Card className="max-w-3xl bg-gradient-to-br from-white via-indigo-50 to-purple-50 border border-indigo-200 shadow-lg rounded-2xl">
+              <Card className="max-w-3xl bg-white border border-blue-800 shadow-lg rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent">Detail Mahasiswa</CardTitle>
+                  <CardTitle className="text-blue-900">Detail Mahasiswa</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col md:flex-row gap-6">
-                    <img src={selected.fotoProfil} alt={selected.nama} className="h-32 w-32 rounded-full object-cover border-4 border-indigo-200 shadow" />
+                    <img src={selected.fotoProfil} alt={selected.nama} className="h-32 w-32 rounded-full object-cover border-4 border-blue-200 shadow" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 w-full">
-                      <div className="text-indigo-800 font-semibold"><b>NIM:</b> {selected.nim}</div>
-                      <div className="text-indigo-800 font-semibold"><b>Nama:</b> {selected.nama}</div>
+                      <div className="text-blue-800 font-semibold"><b>NIM:</b> {selected.nim}</div>
+                      <div className="text-blue-800 font-semibold"><b>Nama:</b> {selected.nama}</div>
                       <div><b>Tempat Lahir:</b> {selected.tempatLahir}</div>
                       <div><b>Tanggal Lahir:</b> {selected.tanggalLahir}</div>
                       <div><b>Program Studi:</b> {selected.prodi}</div>
@@ -244,7 +244,7 @@ const AdminStudents = () => {
                         id="tempatLahir"
                         name="tempatLahir"
                         value={editingStudent.tempatLahir}
-                        onChange={handleInputChange}
+                        onChange={handleInputChange}  
                       />
                     </div>
                     <div className="space-y-2">
@@ -370,7 +370,7 @@ const AdminStudents = () => {
                         }}
                       />
                       {editingStudent.fotoProfil && (
-                        <img src={editingStudent.fotoProfil} alt="Preview" className="mt-2 h-20 w-20 rounded-full object-cover border-2 border-indigo-200 shadow" />
+                        <img src={editingStudent.fotoProfil} alt="Preview" className="mt-2 h-20 w-20 rounded-full object-cover border-2 border-blue-200 shadow" />
                       )}
                     </div>
                     <div className="space-y-2">

@@ -45,20 +45,20 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
 
   return (
     <>
-    <header className="bg-white shadow-sm">
+    <header className="bg-[#000e7c] shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <button
               type="button"
-              className="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-kampus-primary md:hidden"
+              className="px-4 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white md:hidden"
               onClick={onOpenSidebar}
             >
               <span className="sr-only">Open sidebar</span>
               <Menu className="h-6 w-6" />
             </button>
             <div className="flex items-center ml-1,5">
-              <span className="text-xl font-extrabold text-gray-700 tracking-tight">Sistem Informasi Akademik</span>
+              <span className="text-xl font-extrabold text-white tracking-tight">Sistem Informasi Akademik</span>
             </div>
           </div>
           <div className="flex items-center">
@@ -114,7 +114,7 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
                   }
                   alt="Profile"
                 />
-                <span className="hidden md:flex ml-2 text-sm font-medium text-gray-700">
+                <span className="hidden md:flex ml-2 text-sm font-medium text-white">
                   {user?.name}
                 </span>
               </div>

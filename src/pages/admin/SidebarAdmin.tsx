@@ -23,24 +23,24 @@ const SidebarAdmin = ({ mobile, onCloseSidebar }: SidebarAdminProps) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white">
+    <div className="h-full flex flex-col bg-[#000e7c] text-white">
       {/* Sidebar header */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-indigo-700/50 bg-gradient-to-r from-indigo-800/50 to-purple-800/50">
+      <div className="flex items-center justify-between h-20 px-4 border-b border-[#000e7c] bg-[#000e7c]">
         <Link to="/admin/dashboard" className="flex items-center space-x-2">
           <img src="/images/Poliban_logo1.png" alt="Poliban Logo" className="h-10 w-10 object-contain" />
-          <span className="text-xl font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">SIMAK Admin</span>
+          <span className="text-xl font-bold text-white">SIMAK Admin</span>
         </Link>
       </div>
       {/* User info */}
-      <div className="px-4 py-4 border-b border-indigo-700/50 bg-gradient-to-r from-indigo-800/30 to-purple-800/30">
+      <div className="px-4 py-4 border-b border-[#000e7c] bg-[#000e7c]">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <img src={`https://ui-avatars.com/api/?name=Admin&background=6366F1&color=fff`} alt="Profile" className="h-10 w-10 rounded-full ring-2 ring-indigo-400" />
-            <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-400 rounded-full border-2 border-indigo-800"></div>
+            <img src={`https://ui-avatars.com/api/?name=Admin&background=1e3269&color=fff`} alt="Profile" className="h-10 w-10 rounded-full ring-2 ring-white" />
+            <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
           <div className="bg-transparent">
             <p className="font-medium text-white">Admin</p>
-            <p className="text-sm text-indigo-200">Administrator</p>
+            <p className="text-sm text-blue-200">Administrator</p>
           </div>
         </div>
       </div>
@@ -53,17 +53,17 @@ const SidebarAdmin = ({ mobile, onCloseSidebar }: SidebarAdminProps) => {
             onClick={onCloseSidebar}
             className={`flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
               isActivePath(item.path)
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20"
-                : "text-indigo-100 hover:bg-gradient-to-r hover:from-indigo-700/50 hover:to-purple-700/50 hover:text-white"
+                ? "bg-blue-800 text-white shadow-lg shadow-blue-900/20"
+                : "text-blue-100 hover:bg-blue-800 hover:text-white"
             }`}
           >
-            <item.icon className={`mr-3 h-5 w-5 ${isActivePath(item.path) ? "text-indigo-200" : "text-indigo-300"}`} />
+            <item.icon className={`mr-3 h-5 w-5 ${isActivePath(item.path) ? "text-white" : "text-blue-200"}`} />
             {item.name}
           </Link>
         ))}
       </nav>
       {/* Logout button */}
-      <div className="p-4 border-t border-indigo-700/50 bg-gradient-to-r from-indigo-800/30 to-purple-800/30">
+      <div className="p-4 border-t border-[#000e7c] bg-[#000e7c]">
         <button
           onClick={handleLogout}
           className="flex items-center w-full px-3 py-2.5 text-sm font-medium text-indigo-100 rounded-lg hover:bg-gradient-to-r hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-200 transition-all duration-200"

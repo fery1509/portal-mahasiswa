@@ -1,4 +1,3 @@
-
 import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
@@ -45,7 +44,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
       {/* Desktop sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
-        <div className="flex flex-col w-64">
+        <div className="flex flex-col w-64 border-r border-white/20">
           <Sidebar mobile={false} />
         </div>
       </div>
