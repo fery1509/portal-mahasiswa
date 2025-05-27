@@ -12,7 +12,7 @@ const HeaderAdmin = ({ onOpenSidebar }: HeaderAdminProps) => {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           <div className="flex items-center w-full justify-center">
-            <span className="text-3xl md:text-xl font-extrabold text-indigo-700 tracking-tight text-left w-full block">Sistem Informasi Mahasiswa Kampus</span>
+            <span className="text-3xl md:text-xl font-extrabold text-indigo-700 tracking-tight text-left w-full block">Sistem Informasi Akademik</span>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="icon" className="relative text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">

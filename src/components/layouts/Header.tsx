@@ -58,7 +58,7 @@ const Header = ({ onOpenSidebar }: HeaderProps) => {
               <Menu className="h-6 w-6" />
             </button>
             <div className="flex items-center ml-1,5">
-              <span className="text-xl font-extrabold text-gray-700 tracking-tight">Sistem Informasi Mahasiswa Kampus</span>
+              <span className="text-xl font-extrabold text-gray-700 tracking-tight">Sistem Informasi Akademik</span>
             </div>
           </div>
           <div className="flex items-center">
