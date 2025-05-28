@@ -4,6 +4,7 @@ import { User, GraduationCap, TrendingUp, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SidebarAdmin from "./SidebarAdmin";
 import HeaderAdmin from "./HeaderAdmin";
+import EnrollmentTrendsChart from "@/components/charts/EnrollmentTrendsChart";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -146,6 +147,11 @@ const AdminDashboard = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+
+            {/* Enrollment Trends Chart */}
+            <div className="mt-6 max-w-7xl">
+              <EnrollmentTrendsChart />
             </div>
           </div>
         </main>
