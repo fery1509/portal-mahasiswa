@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useState } from "react";
 
 const KHS = () => {
   const { user } = useAuth();
@@ -160,6 +161,9 @@ const KHS = () => {
     return totalCredits;
   };
 
+  // Tambahkan state untuk semester terpilih
+  const [selectedSemester, setSelectedSemester] = useState(semesters[0].id);
+
   return (
     <div className="animate-fade-in">
       <div className="pb-5 border-b border-gray-200">
@@ -271,103 +275,91 @@ const KHS = () => {
         </div>
       </div>
 
-      {/* Semester Tabs */}
+      {/* Semester Dropdown */}
       <div className="mt-6 bg-white shadow rounded-lg overflow-hidden">
-        <Tabs
-          defaultValue={
-            semesters.find((s) => s.active)?.id ||
-            semesters[semesters.length - 1]?.id
-          }
-        >
-          <div className="px-4 py-3 border-b border-gray-200">
-            <TabsList className="w-full overflow-x-auto flex-wrap justify-start space-x-2">
-              {semesters.map((semester) => (
-                <TabsTrigger
-                  key={semester.id}
-                  value={semester.id}
-                  className="px-4 py-2 data-[state=active]:bg-kampus-primary data-[state=active]:text-white"
-                >
-                  {semester.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <div className="px-4 py-3 border-b border-gray-200 flex items-center">
+          <label htmlFor="semester-select" className="mr-2 font-medium">
+            Pilih Semester:
+          </label>
+          <select
+            id="semester-select"
+            value={selectedSemester}
+            onChange={(e) => setSelectedSemester(e.target.value)}
+            className="border rounded px-2 py-1"
+          >
+            {semesters.map((semester) => (
+              <option key={semester.id} value={semester.id}>
+                {semester.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="px-4 py-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-medium text-gray-900">
+              {semesters.find((s) => s.id === selectedSemester)?.name}
+            </h3>
+            <div className="text-right">
+              <div className="text-sm text-gray-500">IP Semester:</div>
+              <div className="text-xl font-bold text-kampus-primary">
+                {calculateSemesterGPA(selectedSemester)}
+              </div>
+            </div>
           </div>
-
-          {semesters.map((semester) => (
-            <TabsContent
-              key={semester.id}
-              value={semester.id}
-              className="px-4 py-4"
+          <div className="overflow-x-auto">
+            <Table>
+              <TableCaption>Hasil Studi {semesters.find((s) => s.id === selectedSemester)?.name}</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Kode</TableHead>
+                  <TableHead>Mata Kuliah</TableHead>
+                  <TableHead className="text-center">SKS</TableHead>
+                  <TableHead className="text-center">Nilai</TableHead>
+                  <TableHead className="text-center">Bobot</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {semesterCourses[
+                  selectedSemester as keyof typeof semesterCourses
+                ]?.map((course, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">
+                      {course.code}
+                    </TableCell>
+                    <TableCell>{course.name}</TableCell>
+                    <TableCell className="text-center">
+                      {course.credits}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {course.grade || (
+                        <span className="text-gray-400 italic">
+                          Belum ada nilai
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {course.grade
+                        ? (
+                            getGradePoint(course.grade) * course.credits
+                          ).toFixed(1)
+                        : "-"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button
+              variant="outline"
+              className="gap-2"
+              disabled={semesters.find((s) => s.id === selectedSemester)?.active}
             >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900">
-                  {semester.name}
-                </h3>
-                <div className="text-right">
-                  <div className="text-sm text-gray-500">IP Semester:</div>
-                  <div className="text-xl font-bold text-kampus-primary">
-                    {calculateSemesterGPA(semester.id)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableCaption>Hasil Studi {semester.name}</TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Kode</TableHead>
-                      <TableHead>Mata Kuliah</TableHead>
-                      <TableHead className="text-center">SKS</TableHead>
-                      <TableHead className="text-center">Nilai</TableHead>
-                      <TableHead className="text-center">Bobot</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {semesterCourses[
-                      semester.id as keyof typeof semesterCourses
-                    ]?.map((course, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">
-                          {course.code}
-                        </TableCell>
-                        <TableCell>{course.name}</TableCell>
-                        <TableCell className="text-center">
-                          {course.credits}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          {course.grade || (
-                            <span className="text-gray-400 italic">
-                              Belum ada nilai
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          {course.grade
-                            ? (
-                                getGradePoint(course.grade) * course.credits
-                              ).toFixed(1)
-                            : "-"}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-
-              <div className="mt-4 flex justify-end">
-                <Button
-                  variant="outline"
-                  className="gap-2"
-                  disabled={semester.active}
-                >
-                  <Download className="h-4 w-4" />
-                  Unduh KHS
-                </Button>
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+              <Download className="h-4 w-4" />
+              Unduh KHS
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
