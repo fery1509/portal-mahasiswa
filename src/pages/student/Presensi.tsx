@@ -200,6 +200,8 @@ const StudentPresensi = () => {
           filteredCourses.map((course) => {
             const attendances = getStudentAttendance(studentId, course.id);
             const percentage = calculateAttendancePercentage(course.id);
+            // Logika: presensi hanya aktif jika bukan matkul 'Kecerdasan Buatan'
+            const isTodayCourse = course.name.toLowerCase() !== 'kecerdasan buatan';
             
             // Filter attendances based on status filter
             const filteredAttendances = statusFilter === 'all' 
@@ -209,10 +211,11 @@ const StudentPresensi = () => {
             return (
               <div key={course.id} className="bg-white shadow rounded-lg overflow-hidden">
                 <div 
-                  className="px-5 py-4 border-b border-gray-200 flex justify-between items-center cursor-pointer"
+                  className="px-5 py-4 border-b border-gray-200 flex items-center cursor-pointer"
                   onClick={() => toggleCourseExpansion(course.id)}
                 >
-                  <div>
+                  {/* Info matkul di kiri, tombol di kanan */}
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2">
                         {course.code}
@@ -222,6 +225,29 @@ const StudentPresensi = () => {
                     <p className="mt-1 text-sm text-gray-500">
                       {course.lecturer} • {percentage}% Kehadiran
                     </p>
+                  </div>
+                  <div className="flex gap-3 ml-auto">
+                    <button
+                      className={`px-4 py-2 rounded font-semibold ${isTodayCourse ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                      onClick={isTodayCourse ? () => markAttendance(studentId, course.id, 'present') : undefined}
+                      disabled={!isTodayCourse}
+                    >
+                      Hadir
+                    </button>
+                    <button
+                      className={`px-4 py-2 rounded font-semibold ${isTodayCourse ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                      onClick={isTodayCourse ? () => markAttendance(studentId, course.id, 'excused') : undefined}
+                      disabled={!isTodayCourse}
+                    >
+                      Izin
+                    </button>
+                    <button
+                      className={`px-4 py-2 rounded font-semibold ${isTodayCourse ? 'bg-red-100 text-red-800 hover:bg-red-200' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                      onClick={isTodayCourse ? () => markAttendance(studentId, course.id, 'absent') : undefined}
+                      disabled={!isTodayCourse}
+                    >
+                      Sakit
+                    </button>
                   </div>
                   <div>
                     {expandedCourse === course.id ? (
@@ -234,6 +260,7 @@ const StudentPresensi = () => {
                 
                 {expandedCourse === course.id && (
                   <div className="p-5">
+                    {/* Tabel Presensi */}
                     {filteredAttendances.length > 0 ? (
                       <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200">
